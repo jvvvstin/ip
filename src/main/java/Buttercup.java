@@ -35,7 +35,7 @@ public class Buttercup {
             if (input.equals("bye")) {
                 exit();
             } else if (input.equals("list")) {
-                // display list of tasks
+                displayTasks();
             } else {
                 addTask(input);
             }
@@ -46,6 +46,15 @@ public class Buttercup {
     public static void addTask(String input) {
         tasks.add(input);
         System.out.println("added: " + input);
+    }
+
+    public static void displayTasks() {
+        int taskNumber = 1;
+        for (String task : tasks) {
+            String str = String.format("%d. %s", taskNumber, task);
+            System.out.println(str);
+            taskNumber++;
+        }
     }
 
     public static void displayLine() {
