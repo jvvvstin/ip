@@ -1,6 +1,11 @@
 import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Buttercup {
+
+    private static List<String> tasks = new ArrayList<>();
+
     public static void main(String[] args) {
         displayLine();
         greet();
@@ -29,11 +34,18 @@ public class Buttercup {
             displayLine();
             if (input.equals("bye")) {
                 exit();
+            } else if (input.equals("list")) {
+                // display list of tasks
             } else {
-                System.out.println(input);
+                addTask(input);
             }
             displayLine();
         }
+    }
+
+    public static void addTask(String input) {
+        tasks.add(input);
+        System.out.println("added: " + input);
     }
 
     public static void displayLine() {
