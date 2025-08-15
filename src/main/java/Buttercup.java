@@ -50,17 +50,38 @@ public class Buttercup {
                 } catch (NumberFormatException e) {
 
                 }
-            } else {
+            } else if (input.startsWith("todo ") || input.startsWith("deadline ") ||
+                    input.startsWith("event ")) {
                 addTask(input);
+            } else {
+                System.out.println("I'm sorry, I do not recognise this command. Please try again.");
             }
             displayLine();
         }
     }
 
     public static void addTask(String input) {
-        Task newTask = new Task(input);
+        Task newTask;
+        if (input.startsWith("todo ")) {
+            newTask = new Todo(input.substring(5).trim());
+        } else if (input.startsWith("deadline ")) {
+            input = input.substring(9);
+            String[] splitted = input.split("/");
+            newTask = new Deadline(splitted[0].trim(), splitted[1].substring(3).trim());
+        } else {
+            input = input.substring(6).trim();
+            String[] splitted = input.split("/");
+            newTask = new Event(splitted[0].trim(), 
+                                splitted[1].substring(5).trim(), 
+                                splitted[2].substring(3).trim());
+        }
+
         tasks.add(newTask);
-        System.out.println("added: " + input);
+        String str = String.format("Got it. I've added this task:\n" +
+                                   "%s\n" +
+                                   "Now you have %d %s in the list.",
+                                   newTask, tasks.size(), tasks.size() == 1 ? "task" : "tasks");
+        System.out.println(str);
     }
 
     public static void displayTasks() {
