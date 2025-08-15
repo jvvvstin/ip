@@ -67,7 +67,7 @@ public class Buttercup {
         System.out.println("Here are the tasks in your list:");
         int taskNumber = 1;
         for (Task task : tasks) {
-            String str = String.format("%d.[%s] %s", taskNumber, task.getStatusIcon(), task);
+            String str = String.format("%d. %s", taskNumber, task);
             System.out.println(str);
             taskNumber++;
         }
@@ -77,16 +77,14 @@ public class Buttercup {
         Task task = tasks.get(taskNumber - 1);
         task.markAsDone();
         System.out.println("Nice! I've marked this task as done:");
-        String str = String.format("[%s] %s", task.getStatusIcon(), task);
-        System.out.println(str);
+        System.out.println(task);
     }
 
     public static void unmark(int taskNumber) {
         Task task = tasks.get(taskNumber - 1);
         task.markAsNotDone();
         System.out.println("OK, I've marked this task as not done yet:");
-        String str = String.format("[%s] %s", task.getStatusIcon(), task);
-        System.out.println(str);
+        System.out.println(task);
     }
 
     public static void displayLine() {
