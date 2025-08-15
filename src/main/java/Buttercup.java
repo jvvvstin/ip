@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Buttercup {
 
-    private static List<String> tasks = new ArrayList<>();
+    private static List<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         displayLine();
@@ -36,6 +36,20 @@ public class Buttercup {
                 exit();
             } else if (input.equals("list")) {
                 displayTasks();
+            } else if (input.startsWith("mark ")) {
+                try {
+                    int taskNumber = Integer.parseInt(input.substring(5).trim());
+                    mark(taskNumber);
+                } catch (NumberFormatException e) {
+
+                }
+            } else if (input.startsWith("unmark ")) {
+                try {
+                    int taskNumber = Integer.parseInt(input.substring(7).trim());
+                    unmark(taskNumber);
+                } catch (NumberFormatException e) {
+
+                }
             } else {
                 addTask(input);
             }
@@ -44,17 +58,35 @@ public class Buttercup {
     }
 
     public static void addTask(String input) {
-        tasks.add(input);
+        Task newTask = new Task(input);
+        tasks.add(newTask);
         System.out.println("added: " + input);
     }
 
     public static void displayTasks() {
+        System.out.println("Here are the tasks in your list:");
         int taskNumber = 1;
-        for (String task : tasks) {
-            String str = String.format("%d. %s", taskNumber, task);
+        for (Task task : tasks) {
+            String str = String.format("%d.[%s] %s", taskNumber, task.getStatusIcon(), task);
             System.out.println(str);
             taskNumber++;
         }
+    }
+
+    public static void mark(int taskNumber) {
+        Task task = tasks.get(taskNumber - 1);
+        task.markAsDone();
+        System.out.println("Nice! I've marked this task as done:");
+        String str = String.format("[%s] %s", task.getStatusIcon(), task);
+        System.out.println(str);
+    }
+
+    public static void unmark(int taskNumber) {
+        Task task = tasks.get(taskNumber - 1);
+        task.markAsNotDone();
+        System.out.println("OK, I've marked this task as not done yet:");
+        String str = String.format("[%s] %s", task.getStatusIcon(), task);
+        System.out.println(str);
     }
 
     public static void displayLine() {
