@@ -32,53 +32,59 @@ public class Buttercup {
             // Read user input
             input = scanner.nextLine().trim();
             displayLine();
-            if (input.equals("bye")) {
-                exit();
-            } else if (input.equals("list")) {
-                displayTasks();
-            } else if (input.startsWith("mark ")) {
-                try {
-                    int taskNumber = Integer.parseInt(input.substring(5).trim());
-                    mark(taskNumber);
-                } catch (NumberFormatException e) {
-                    System.out.println("Invalid task number! Please enter in a valid task number e.g. mark 7.");
-                } catch (ButtercupException e) {
-                    System.out.println(e);
+            try {
+                Command command = Command.getCommand(input.split(" ")[0]);
+                switch (command) {
+                    case BYE:
+                        exit();
+                        break;
+                    case LIST:
+                        displayTasks();
+                        break;
+                    case MARK:
+                        try {
+                            int taskNumber = Integer.parseInt(input.substring(5).trim());
+                            mark(taskNumber);
+                        } catch (NumberFormatException e) {
+                            System.out.println("Invalid task number! Please enter in a valid task number e.g. mark 7.");
+                        } catch (ButtercupException e) {
+                            System.out.println(e);
+                        }
+                        break;
+                    case UNMARK:
+                        try {
+                            int taskNumber = Integer.parseInt(input.substring(7).trim());
+                            unmark(taskNumber);
+                        } catch (NumberFormatException e) {
+                            System.out.println("Invalid task number! Please enter in a valid task number e.g. unmark 7.");
+                        } catch (ButtercupException e) {
+                            System.out.println(e);
+                        }
+                        break;
+                    case TODO:
+                    case DEADLINE:
+                    case EVENT:
+                        try {
+                            addTask(input);
+                        } catch (ButtercupException e) {
+                            System.out.println(e);
+                        }
+                        break;
+                    case DELETE:
+                        try {
+                            int taskNumber = Integer.parseInt(input.substring(7).trim());
+                            deleteTask(taskNumber);
+                        } catch (NumberFormatException e) {
+                            System.out.println("Invalid task number! Please enter in a valid task number e.g. delete 7.");
+                        } catch (ButtercupException e) {
+                            System.out.println(e);
+                        }
+                        break;
+                    default:
+                        throw new ButtercupException("Invalid command. Please try again.");
                 }
-            } else if (input.startsWith("unmark ")) {
-                try {
-                    int taskNumber = Integer.parseInt(input.substring(7).trim());
-                    unmark(taskNumber);
-                } catch (NumberFormatException e) {
-                    System.out.println("Invalid task number! Please enter in a valid task number e.g. unmark 7.");
-                } catch (ButtercupException e) {
-                    System.out.println(e);
-                }
-            } else if (input.startsWith("todo ") || input.startsWith("deadline ") ||
-                    input.startsWith("event ")) {
-                try {
-                    addTask(input);
-                } catch (ButtercupException e) {
-                    System.out.println(e);
-                }
-            } else if (input.equals("todo") || input.equals("deadline") ||
-                    input.equals("event")) {
-                try {
-                    handleInvalidTasks(input);
-                } catch (ButtercupException e) {
-                    System.out.println(e);
-                }
-            } else if (input.startsWith("delete ")) {
-                try {
-                    int taskNumber = Integer.parseInt(input.substring(7).trim());
-                    deleteTask(taskNumber);
-                } catch (NumberFormatException e) {
-                    System.out.println("Invalid task number! Please enter in a valid task number e.g. delete 7.");
-                } catch (ButtercupException e) {
-                    System.out.println(e);
-                }
-            } else {
-                System.out.println("I'm sorry, I do not recognise this command. Please try again.");
+            } catch (ButtercupException e) {
+                System.out.println(e);
             }
             displayLine();
         }
@@ -107,7 +113,7 @@ public class Buttercup {
     }
 
     public static void addTask(String input) throws ButtercupException {
-        Task newTask;
+        Task newTask = null;
         if (input.startsWith("todo ")) {
             newTask = new Todo(input.substring(5).trim());
         } else if (input.startsWith("deadline ")) {
@@ -126,13 +132,13 @@ public class Buttercup {
                 throw new ButtercupException("Invalid format, deadline's deadline should not be empty and should be of the format deadline {description} /by {deadline} instead.");
             }
             newTask = new Deadline(splitted[0].trim(), splitted[1].trim());
-        } else {
+        } else if (input.startsWith("event ")) {
             input = input.substring(6).trim();
             if (!input.contains("/from")) {
-                throw new ButtercupException("Invalid format, deadline command should contain '/from' and be of the format event {description} /from {start} /to {end} instead.");
+                throw new ButtercupException("Invalid format, event command should contain '/from' and be of the format event {description} /from {start} /to {end} instead.");
             }
             if (!input.contains("/to")) {
-                throw new ButtercupException("Invalid format, deadline command should contain '/to' and be of the format event {description} /from {start} /to {end} instead.");
+                throw new ButtercupException("Invalid format, event command should contain '/to' and be of the format event {description} /from {start} /to {end} instead.");
             }
             String[] splitted = input.split("/from");
             if (splitted.length != 2 || splitted[1].trim().isEmpty()) {
@@ -155,6 +161,8 @@ public class Buttercup {
                 throw new ButtercupException("Invalid format, event's end should not be empty and should be of the format event {description} /from {start} /to {end} instead.");
             }
             newTask = new Event(description, from, to);
+        } else {
+            handleInvalidTasks(input);
         }
 
         tasks.add(newTask);
