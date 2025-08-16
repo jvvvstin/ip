@@ -68,11 +68,32 @@ public class Buttercup {
                 } catch (ButtercupException e) {
                     System.out.println(e);
                 }
+            } else if (input.startsWith("delete ")) {
+                try {
+                    int taskNumber = Integer.parseInt(input.substring(7).trim());
+                    deleteTask(taskNumber);
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid task number! Please enter in a valid task number e.g. delete 7.");
+                } catch (ButtercupException e) {
+                    System.out.println(e);
+                }
             } else {
                 System.out.println("I'm sorry, I do not recognise this command. Please try again.");
             }
             displayLine();
         }
+    }
+
+    private static void deleteTask(int taskNumber) throws ButtercupException {
+        if (tasks.isEmpty()) {
+            throw new ButtercupException("There are no tasks in the list.");
+        }
+        if (taskNumber <= 0 || taskNumber > tasks.size()) {
+            throw new ButtercupException("Invalid task number! Please enter in a valid task number from 1 - " + tasks.size() + " e.g. delete 7.");
+        }
+        Task task = tasks.remove(taskNumber - 1);
+        System.out.println("Noted! I've removed this task:");
+        System.out.println(task);
     }
 
     private static void handleInvalidTasks(String input) throws ButtercupException {
