@@ -25,5 +25,9 @@ unmark -1
 unmark 0
 unmark 2
 list
+delete -1
+delete 0
+delete 2
+list
 wrong command
 bye
