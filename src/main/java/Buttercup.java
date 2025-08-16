@@ -26,9 +26,9 @@ public class Buttercup {
 
     public static void echo() {
         String input = "";
+        Scanner scanner = new Scanner(System.in);
 
         while (!(input.equals("bye"))) {
-            Scanner scanner = new Scanner(System.in);
             // Read user input
             input = scanner.nextLine();
             displayLine();
