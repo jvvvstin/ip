@@ -32,59 +32,62 @@ public class Buttercup {
             // Read user input
             input = scanner.nextLine().trim();
             displayLine();
+            Command command = null;
             try {
-                Command command = Command.getCommand(input.split(" ")[0]);
-                switch (command) {
-                    case BYE:
-                        exit();
-                        break;
-                    case LIST:
-                        displayTasks();
-                        break;
-                    case MARK:
-                        try {
-                            int taskNumber = Integer.parseInt(input.substring(5).trim());
-                            mark(taskNumber);
-                        } catch (NumberFormatException e) {
-                            System.out.println("Invalid task number! Please enter in a valid task number e.g. mark 7.");
-                        } catch (ButtercupException e) {
-                            System.out.println(e);
-                        }
-                        break;
-                    case UNMARK:
-                        try {
-                            int taskNumber = Integer.parseInt(input.substring(7).trim());
-                            unmark(taskNumber);
-                        } catch (NumberFormatException e) {
-                            System.out.println("Invalid task number! Please enter in a valid task number e.g. unmark 7.");
-                        } catch (ButtercupException e) {
-                            System.out.println(e);
-                        }
-                        break;
-                    case TODO:
-                    case DEADLINE:
-                    case EVENT:
-                        try {
-                            addTask(input);
-                        } catch (ButtercupException e) {
-                            System.out.println(e);
-                        }
-                        break;
-                    case DELETE:
-                        try {
-                            int taskNumber = Integer.parseInt(input.substring(7).trim());
-                            deleteTask(taskNumber);
-                        } catch (NumberFormatException e) {
-                            System.out.println("Invalid task number! Please enter in a valid task number e.g. delete 7.");
-                        } catch (ButtercupException e) {
-                            System.out.println(e);
-                        }
-                        break;
-                    default:
-                        throw new ButtercupException("Invalid command. Please try again.");
-                }
+                command = Command.getCommand(input.split(" ")[0]);
             } catch (ButtercupException e) {
                 System.out.println(e);
+                displayLine();
+                continue;
+            }
+            switch (command) {
+            case BYE:
+                exit();
+                break;
+            case LIST:
+                displayTasks();
+                break;
+            case MARK:
+                try {
+                    int taskNumber = Integer.parseInt(input.substring(5).trim());
+                    mark(taskNumber);
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid task number! Please enter in a valid task number e.g. mark 7.");
+                } catch (ButtercupException e) {
+                    System.out.println(e);
+                }
+                break;
+            case UNMARK:
+                try {
+                    int taskNumber = Integer.parseInt(input.substring(7).trim());
+                    unmark(taskNumber);
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid task number! Please enter in a valid task number e.g. unmark 7.");
+                } catch (ButtercupException e) {
+                    System.out.println(e);
+                }
+                break;
+            case TODO:
+            case DEADLINE:
+            case EVENT:
+                try {
+                    addTask(input);
+                } catch (ButtercupException e) {
+                    System.out.println(e);
+                }
+                break;
+            case DELETE:
+                try {
+                    int taskNumber = Integer.parseInt(input.substring(7).trim());
+                    deleteTask(taskNumber);
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid task number! Please enter in a valid task number e.g. delete 7.");
+                } catch (ButtercupException e) {
+                    System.out.println(e);
+                }
+                break;
+            default:
+                continue;
             }
             displayLine();
         }
