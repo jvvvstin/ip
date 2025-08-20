@@ -1,3 +1,4 @@
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -16,8 +17,8 @@ public class Buttercup {
         setup();
         displayLine();
         greet();
-        loadTasks();
         displayLine();
+        loadTasks();
         echo();
     }
 
@@ -28,27 +29,46 @@ public class Buttercup {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-
         for (String line : lines) {
             // format: T | 1 | read book
             //         D | 0 | return book | June 6th
             //         E | 0 | project meeting | Aug 6th 2pm | 4pm
-            String[] splitted = line.split(" \\| ");
-            String type = splitted[0];
-            boolean isDone = splitted[1].equals("1");
-            String description = splitted[2];
+            try {
+                String[] splitted = line.split(" \\| ");
+                String type = splitted[0];
+                boolean isDone = splitted[1].equals("1");
+                String description = splitted[2];
 
-            switch (type) {
-            case "T":
-                Buttercup.tasks.add(new Todo(description, isDone));
-                break;
-            case "D":
-                Buttercup.tasks.add(new Deadline(description, isDone, splitted[3]));
-                break;
-            case "E":
-                Buttercup.tasks.add(new Event(description, isDone, splitted[3], splitted[4]));
-                break;
+                switch (type) {
+                case "T":
+                    Buttercup.tasks.add(new Todo(description, isDone));
+                    break;
+                case "D":
+                    Buttercup.tasks.add(new Deadline(description, isDone, splitted[3]));
+                    break;
+                case "E":
+                    Buttercup.tasks.add(new Event(description, isDone, splitted[3], splitted[4]));
+                    break;
+                }
+            } catch (Exception e) {
+                System.out.println("Invalid task format, skipping and removing corrupted line: " + line);
+                displayLine();
             }
+        }
+
+        // write all properly formatted lines to save file
+        saveTasks(Buttercup.tasks);
+    }
+
+    private static void saveTasks(List<Task> tasks) {
+        List<String> lines = new ArrayList<>();
+        for (Task task : tasks) {
+            lines.add(task.toFileString());
+        }
+        try {
+            Files.write(Paths.get(TASKS_FILENAME), lines);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -227,14 +247,27 @@ public class Buttercup {
             newTask = new Event(description, from, to);
         } else {
             handleInvalidTasks(input);
+            return;
         }
 
         tasks.add(newTask);
+        try {
+            writeToFile(TASKS_FILENAME, newTask.toFileString());
+        } catch (IOException e) {
+            System.out.println("Error writing tasks to file: " + e.getMessage());
+        }
+
         String str = String.format("Got it. I've added this task:\n" +
                                    "%s\n" +
                                    "Now you have %d %s in the list.",
                                    newTask, tasks.size(), tasks.size() == 1 ? "task" : "tasks");
         System.out.println(str);
+    }
+
+    private static void writeToFile(String filepath, String taskToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filepath, true);
+        fw.write(taskToAdd + "\n");
+        fw.close();
     }
 
     public static void displayTasks() {
