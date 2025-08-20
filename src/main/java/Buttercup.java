@@ -1,3 +1,7 @@
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
@@ -5,12 +9,69 @@ import java.util.ArrayList;
 public class Buttercup {
 
     private static List<Task> tasks = new ArrayList<>();
+    private static final String TASKS_FILEPATH = "data";
+    private static final String TASKS_FILENAME = TASKS_FILEPATH + "/tasks.txt";
 
     public static void main(String[] args) {
+        setup();
         displayLine();
         greet();
+        loadTasks();
         displayLine();
         echo();
+    }
+
+    private static void loadTasks() {
+        List<String> lines = new ArrayList<>();
+        try {
+            lines = Files.readAllLines(Paths.get(TASKS_FILENAME));
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+        for (String line : lines) {
+            // format: T | 1 | read book
+            //         D | 0 | return book | June 6th
+            //         E | 0 | project meeting | Aug 6th 2pm | 4pm
+            String[] splitted = line.split(" \\| ");
+            String type = splitted[0];
+            boolean isDone = splitted[1].equals("1");
+            String description = splitted[2];
+
+            switch (type) {
+            case "T":
+                Buttercup.tasks.add(new Todo(description, isDone));
+                break;
+            case "D":
+                Buttercup.tasks.add(new Deadline(description, isDone, splitted[3]));
+                break;
+            case "E":
+                Buttercup.tasks.add(new Event(description, isDone, splitted[3], splitted[4]));
+                break;
+            }
+        }
+    }
+
+    private static void setup() {
+        Path path = Paths.get(TASKS_FILEPATH);
+        // check if file directory exists
+        if (Files.notExists(path)) {
+            try {
+                // creates directory if it does not exist
+                Files.createDirectory(path);
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        Path file = Paths.get(TASKS_FILENAME);
+        if (Files.notExists(file)) {
+            try {
+                Files.createFile(file);
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     public static void greet() {
