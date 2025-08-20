@@ -8,8 +8,19 @@ public class Event extends Task {
         this.end = end;
     }
 
+    public Event(String description, boolean isDone, String start, String end) {
+        super(description, isDone);
+        this.start = start;
+        this.end = end;
+    }
+
     @Override
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)", super.toString(), this.start, this.end);
+    }
+
+    @Override
+    public String toFileString() {
+        return String.format("E | %s | %s | %s", super.toFileString(), this.start, this.end);
     }
 }
