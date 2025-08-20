@@ -57,10 +57,14 @@ public class Buttercup {
         }
 
         // write all properly formatted lines to save file
-        saveTasks(Buttercup.tasks);
+        try {
+            saveTasks(Buttercup.tasks);
+        } catch (ButtercupException e) {
+            System.out.println(e);
+        }
     }
 
-    private static void saveTasks(List<Task> tasks) {
+    private static void saveTasks(List<Task> tasks) throws ButtercupException {
         List<String> lines = new ArrayList<>();
         for (Task task : tasks) {
             lines.add(task.toFileString());
@@ -68,7 +72,7 @@ public class Buttercup {
         try {
             Files.write(Paths.get(TASKS_FILENAME), lines);
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            throw new ButtercupException("Error while writing tasks to file: " + e.getMessage());
         }
     }
 
@@ -182,6 +186,7 @@ public class Buttercup {
             throw new ButtercupException("Invalid task number! Please enter in a valid task number from 1 - " + tasks.size() + " e.g. delete 7.");
         }
         Task task = tasks.remove(taskNumber - 1);
+        saveTasks(Buttercup.tasks);
         System.out.println("Noted! I've removed this task:");
         System.out.println(task);
     }
@@ -253,8 +258,8 @@ public class Buttercup {
         tasks.add(newTask);
         try {
             writeToFile(TASKS_FILENAME, newTask.toFileString());
-        } catch (IOException e) {
-            System.out.println("Error writing tasks to file: " + e.getMessage());
+        } catch (ButtercupException e) {
+            System.out.println(e);
         }
 
         String str = String.format("Got it. I've added this task:\n" +
@@ -264,10 +269,14 @@ public class Buttercup {
         System.out.println(str);
     }
 
-    private static void writeToFile(String filepath, String taskToAdd) throws IOException {
-        FileWriter fw = new FileWriter(filepath, true);
-        fw.write(taskToAdd + "\n");
-        fw.close();
+    private static void writeToFile(String filepath, String taskToAdd) throws ButtercupException {
+        try {
+            FileWriter fw = new FileWriter(filepath, true);
+            fw.write(taskToAdd + "\n");
+            fw.close();
+        } catch (IOException e) {
+            throw new ButtercupException("Error while writing tasks to file: " + e.getMessage());
+        }
     }
 
     public static void displayTasks() {
@@ -293,6 +302,7 @@ public class Buttercup {
         }
         Task task = tasks.get(taskNumber - 1);
         task.markAsDone();
+        saveTasks(Buttercup.tasks);
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(task);
     }
@@ -306,6 +316,7 @@ public class Buttercup {
         }
         Task task = tasks.get(taskNumber - 1);
         task.markAsNotDone();
+        saveTasks(Buttercup.tasks);
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(task);
     }
