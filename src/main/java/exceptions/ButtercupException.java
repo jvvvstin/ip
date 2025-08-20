@@ -1,3 +1,5 @@
+package exceptions;
+
 public class ButtercupException extends Exception {
     public ButtercupException(String message) {
         super(message);

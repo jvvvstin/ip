@@ -1,3 +1,5 @@
+import exceptions.ButtercupException;
+
 public enum Command {
     BYE("bye"),
     LIST("list"),
