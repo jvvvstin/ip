@@ -1,14 +1,17 @@
-public class Event extends Task {
-    protected String start;
-    protected String end;
+import java.time.LocalDateTime;
+import utils.DateTimeFormatUtils;
 
-    public Event(String description, String start, String end) {
+public class Event extends Task {
+    protected LocalDateTime start;
+    protected LocalDateTime end;
+
+    public Event(String description, LocalDateTime start, LocalDateTime end) {
         super(description);
         this.start = start;
         this.end = end;
     }
 
-    public Event(String description, boolean isDone, String start, String end) {
+    public Event(String description, boolean isDone, LocalDateTime start, LocalDateTime end) {
         super(description, isDone);
         this.start = start;
         this.end = end;
@@ -16,7 +19,9 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)", super.toString(), this.start, this.end);
+        return String.format("[E]%s (from: %s to: %s)", super.toString(),
+                DateTimeFormatUtils.formatDateTime(this.start),
+                DateTimeFormatUtils.formatDateTime(this.end));
     }
 
     @Override

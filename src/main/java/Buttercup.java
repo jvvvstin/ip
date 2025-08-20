@@ -1,8 +1,11 @@
+import exceptions.ButtercupException;
+import utils.DateTimeFormatUtils;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
@@ -44,10 +47,11 @@ public class Buttercup {
                     Buttercup.tasks.add(new Todo(description, isDone));
                     break;
                 case "D":
-                    Buttercup.tasks.add(new Deadline(description, isDone, splitted[3]));
+                    Buttercup.tasks.add(new Deadline(description, isDone, LocalDateTime.parse(splitted[3])));
                     break;
                 case "E":
-                    Buttercup.tasks.add(new Event(description, isDone, splitted[3], splitted[4]));
+                    Buttercup.tasks.add(new Event(description, isDone, LocalDateTime.parse(splitted[3]),
+                            LocalDateTime.parse(splitted[4])));
                     break;
                 }
             } catch (Exception e) {
@@ -220,7 +224,8 @@ public class Buttercup {
             if (splitted[1].trim().isEmpty()) {
                 throw new ButtercupException("Invalid format, deadline's deadline should not be empty and should be of the format deadline {description} /by {deadline} instead.");
             }
-            newTask = new Deadline(splitted[0].trim(), splitted[1].trim());
+
+            newTask = new Deadline(splitted[0].trim(), DateTimeFormatUtils.getLocalDateTimeFromString(splitted[1].trim()));
         } else if (input.startsWith("event ")) {
             input = input.substring(6).trim();
             if (!input.contains("/from")) {
@@ -249,7 +254,7 @@ public class Buttercup {
             if (to.isEmpty()) {
                 throw new ButtercupException("Invalid format, event's end should not be empty and should be of the format event {description} /from {start} /to {end} instead.");
             }
-            newTask = new Event(description, from, to);
+            newTask = new Event(description, DateTimeFormatUtils.getLocalDateTimeFromString(from), DateTimeFormatUtils.getLocalDateTimeFromString(to));
         } else {
             handleInvalidTasks(input);
             return;
