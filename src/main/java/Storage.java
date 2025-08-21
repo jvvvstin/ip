@@ -24,7 +24,7 @@ public class Storage {
             }
         }
 
-        Path file = Paths.get(dir + fileName);
+        Path file = Paths.get(fileName);
         if (Files.notExists(file)) {
             try {
                 Files.createFile(file);

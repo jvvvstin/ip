@@ -50,7 +50,9 @@ public class Ui {
                 break;
             default:
                 String result = this.parser.processCommand(command, input);
-                System.out.println(result);
+                if (!result.equals("")) {
+                    System.out.println(result);
+                }
             }
             displayLine();
         }
