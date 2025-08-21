@@ -1,4 +1,6 @@
-import exceptions.ButtercupException;
+package buttercup.commands;
+
+import buttercup.exceptions.ButtercupException;
 
 public enum Command {
     BYE("bye"),
