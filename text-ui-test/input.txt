@@ -7,6 +7,7 @@ deadline /by June 6th
 deadline return book /by
 deadline /by June 6th
 deadline return book /by June 6th
+deadline return book /by 2025-06-06 1800
 event
 event project meeting from Aug 6th 2pm to 4pm
 event /from /to
@@ -14,6 +15,7 @@ event project meeting /from /to
 event project meeting /from Aug 6th 2pm /to
 event project meeting /from /to 4pm
 event project meeting /from Aug 6th 2pm /to 4pm
+event project meeting /from 2025-08-06 1400 /to 2025-08-06 1600
 list
 mark abc
 mark -1
