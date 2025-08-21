@@ -1,4 +1,4 @@
-package exceptions;
+package buttercup.exceptions;
 
 public class ButtercupException extends Exception {
     public ButtercupException(String message) {

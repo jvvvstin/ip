@@ -1,4 +1,7 @@
-import exceptions.ButtercupException;
+package buttercup.storage;
+
+import buttercup.exceptions.ButtercupException;
+import buttercup.tasks.*;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -108,7 +111,7 @@ public class Storage {
         try {
             Files.write(this.file, lines);
         } catch (IOException e) {
-            throw new ButtercupException("Error while writing tasks to file: " + e.getMessage());
+            throw new ButtercupException("Error while writing buttercup.tasks to file: " + e.getMessage());
         }
     }
 
