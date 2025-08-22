@@ -5,7 +5,6 @@ deadline
 deadline return book by June 6th
 deadline /by June 6th
 deadline return book /by
-deadline /by June 6th
 deadline return book /by June 6th
 deadline return book /by 2025-06-06 1800
 event

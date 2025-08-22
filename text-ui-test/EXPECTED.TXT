@@ -26,9 +26,6 @@ ____________________________________________________________
 [ButtercupException]: Invalid format, deadline command should be of the format deadline {description} /by {deadline} instead.
 ____________________________________________________________
 ____________________________________________________________
-[ButtercupException]: Invalid format, deadline's description should not be empty and should be of the format deadline {description} /by {deadline} instead.
-____________________________________________________________
-____________________________________________________________
 [ButtercupException]: Invalid date time format. Please use date formats like 'yyyy-MM-dd HHmm' (e.g. 2019-09-15 1800) or 'd/M/yyyy HHmm' (e.g. 13/9/2015 1800)
 ____________________________________________________________
 ____________________________________________________________
@@ -114,12 +111,12 @@ ____________________________________________________________
 ____________________________________________________________
 ____________________________________________________________
 Noted! I've removed this task:
-[E][ ] project meeting (from: Aug 06 2025 1400 to: Aug 06 2025 1600)
+[D][ ] return book (by: Jun 06 2025 1800)
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
 1. [T][ ] read book
-2. [D][ ] return book (by: Jun 06 2025 1800)
+2. [E][ ] project meeting (from: Aug 06 2025 1400 to: Aug 06 2025 1600)
 ____________________________________________________________
 ____________________________________________________________
 [ButtercupException]: Invalid command 'wrong'. Please try again.
