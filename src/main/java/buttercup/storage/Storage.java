@@ -27,7 +27,7 @@ public class Storage {
             }
         }
 
-        Path file = Paths.get(fileName);
+        Path file = Paths.get(dir + fileName);
         if (Files.notExists(file)) {
             try {
                 Files.createFile(file);
@@ -54,26 +54,29 @@ public class Storage {
             System.out.println(e.getMessage());
         }
         for (String line : lines) {
-            // format: T | 1 | read book
-            //         D | 0 | return book | June 6th
-            //         E | 0 | project meeting | Aug 6th 2pm | 4pm
+            //  T | 0 | read book
+            //  D | 0 | return book | 2025-08-08T18:00
+            //  E | 0 | project meeting | 2025-08-14T19:00 | 2025-08-14T22:00
             try {
                 String[] splitted = line.split(" \\| ");
                 String type = splitted[0];
+                if (!(splitted[1].equals("1") || splitted[1].equals("0"))) {
+                    throw new ButtercupException("");
+                }
                 boolean isDone = splitted[1].equals("1");
                 String description = splitted[2];
 
                 switch (type) {
-                    case "T":
-                        tasks.add(new Todo(description, isDone));
-                        break;
-                    case "D":
-                        tasks.add(new Deadline(description, isDone, LocalDateTime.parse(splitted[3])));
-                        break;
-                    case "E":
-                        tasks.add(new Event(description, isDone, LocalDateTime.parse(splitted[3]),
-                                LocalDateTime.parse(splitted[4])));
-                        break;
+                case "T":
+                    tasks.add(new Todo(description, isDone));
+                    break;
+                case "D":
+                    tasks.add(new Deadline(description, isDone, LocalDateTime.parse(splitted[3])));
+                    break;
+                case "E":
+                    tasks.add(new Event(description, isDone, LocalDateTime.parse(splitted[3]),
+                            LocalDateTime.parse(splitted[4])));
+                    break;
                 }
             } catch (Exception e) {
                 System.out.println("Invalid task format, skipping and removing corrupted line: " + line);
