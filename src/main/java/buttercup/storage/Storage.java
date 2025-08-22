@@ -124,7 +124,7 @@ public class Storage {
     }
 
     public Task deleteTask(int index) throws ButtercupException {
-        Task task = this.tasks.getTask(index);
+        Task task = this.tasks.getTask(index - 1);
         this.tasks.removeTask(task);
         saveTasks(this.tasks.getTasks());
         return task;
