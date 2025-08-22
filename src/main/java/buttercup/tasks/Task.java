@@ -26,6 +26,14 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
+    public boolean isDone() {
+        return this.isDone;
+    }
+
     public String toString() {
         return String.format("[%s] %s", this.getStatusIcon(), this.description);
     }
