@@ -62,18 +62,18 @@ public abstract class Task {
     }
 
     /**
-     * Returns a <code>String</code> representation of the task.
-     * @return A <code>String</code> representation of the task.
+     * Returns a <code>String</code> representation of the Task object.
+     * @return A <code>String</code> representation of the Task object.
      */
     public String toString() {
         return String.format("[%s] %s", this.getStatusIcon(), this.description);
     }
 
     /**
-     * Returns a <code>String</code> representation of the task to be
-     * written in a saved file.
-     * @return A <code>String</code> representation of the task to be
-     * written in a saved file.
+     * Returns a <code>String</code> representation of the Task object
+     * to be written in a save file.
+     * @return A <code>String</code> representation of the Task object
+     * to be written in a save file.
      */
     public String toFileString() {
         return String.format("%s | %s", this.isDone ? "1" : "0", this.description);
