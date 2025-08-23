@@ -1,5 +1,8 @@
 package buttercup.tasks;
 
+/**
+ * Represents a Todo task that is to be completed.
+ */
 public class Todo extends Task {
     public Todo(String description) {
         super(description);
@@ -9,11 +12,21 @@ public class Todo extends Task {
         super(description, isDone);
     }
 
+    /**
+     * Returns a <code>String</code> representation of the Todo task.
+     * @return a <code>String</code> representation of the Todo task.
+     */
     @Override
     public String toString() {
         return String.format("[T]%s", super.toString());
     }
 
+    /**
+     * Returns a <code>String</code> representation of the Todo task
+     * to be written in a saved file.
+     * @return A <code>String</code> representation of the Todo task
+     * to be written in a saved file.
+     */
     @Override
     public String toFileString() {
         return String.format("T | %s", super.toFileString());
