@@ -6,6 +6,10 @@ import buttercup.storage.Storage;
 import buttercup.exceptions.ButtercupException;
 import java.util.Scanner;
 
+/**
+ * Represents the UI of Buttercup chatbot and deals with interactions
+ * with the user, such as displaying output.
+ */
 public class Ui {
 
     private Scanner scanner;
@@ -16,10 +20,16 @@ public class Ui {
         this.parser = new CommandParser(storage);
     }
 
+    /**
+     * Displays a separator line to the user.
+     */
     public void displayLine() {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Displays a greeting message to the user
+     */
     public void greet() {
         displayLine();
         String message = "Hello! I'm Buttercup\n" +
@@ -28,11 +38,18 @@ public class Ui {
         displayLine();
     }
 
+    /**
+     * Starts the Buttercup chatbot program.
+     */
     public void start() {
         greet();
         beginPrompt();
     }
 
+    /**
+     * Prompts the user for what they would like to do. The program
+     * ends when the user enters the input 'bye'.
+     */
     public void beginPrompt() {
         String input = "";
         Scanner scanner = new Scanner(System.in);
@@ -63,6 +80,9 @@ public class Ui {
         }
     }
 
+    /**
+     * Displays the exit message to the user.
+     */
     public void exit() {
         String exitMessage = "Bye. Hope to see you again soon!";
         System.out.println(exitMessage);
