@@ -1,9 +1,13 @@
 package buttercup.ui;
 
 import buttercup.commands.Command;
+
 import buttercup.parsers.CommandParser;
+
 import buttercup.storage.Storage;
+
 import buttercup.exceptions.ButtercupException;
+
 import java.util.Scanner;
 
 public class Ui {

@@ -1,11 +1,8 @@
 package buttercup;
 
 import buttercup.storage.Storage;
-import buttercup.tasks.Task;
-import buttercup.ui.Ui;
 
-import java.util.List;
-import java.util.ArrayList;
+import buttercup.ui.Ui;
 
 public class Buttercup {
 
