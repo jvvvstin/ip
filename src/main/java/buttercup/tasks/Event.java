@@ -3,6 +3,11 @@ package buttercup.tasks;
 import java.time.LocalDateTime;
 import buttercup.utils.DateTimeFormatUtils;
 
+/**
+ * Represents an Event task that is going to take place. An <code>Event</code>
+ * object corresponds to an event that is going to take place and has a start
+ * and end date for the event.
+ */
 public class Event extends Task {
     protected LocalDateTime start;
     protected LocalDateTime end;
@@ -19,6 +24,10 @@ public class Event extends Task {
         this.end = end;
     }
 
+    /**
+     * Returns a <code>String</code> representation of the Event object.
+     * @return A <code>String</code> representation of the Event object.
+     */
     @Override
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)", super.toString(),
@@ -26,6 +35,12 @@ public class Event extends Task {
                 DateTimeFormatUtils.formatDateTime(this.end));
     }
 
+    /**
+     * Returns a <code>String</code> representation of the Event object
+     * to be written in a save file.
+     * @return A <code>String</code> representation of the Event object
+     * to be written in a save file.
+     */
     @Override
     public String toFileString() {
         return String.format("E | %s | %s | %s", super.toFileString(), this.start, this.end);
