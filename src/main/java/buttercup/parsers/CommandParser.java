@@ -9,6 +9,9 @@ import buttercup.tasks.Task;
 import buttercup.tasks.Todo;
 import buttercup.utils.DateTimeFormatUtils;
 
+/**
+ * Deals with the logic and making sense of the user's command.
+ */
 public class CommandParser {
     private final Storage storage;
 
@@ -16,6 +19,15 @@ public class CommandParser {
         this.storage = storage;
     }
 
+    /**
+     * Returns the result to be displayed to the user, based on the
+     * command and input provided by the user.
+     * @param command A type of command that the user wish to run
+     * @param input Input provided by the user
+     * @return A <code>String</code> result to be displayed to the
+     * user based on their command
+     * @see Command
+     */
     public String processCommand(Command command, String input) {
         String result = "";
         switch (command) {
@@ -67,6 +79,12 @@ public class CommandParser {
         return result;
     }
 
+    /**
+     * Returns a <code>String</code> representation of all the
+     * current tasks to be displayed on the UI.
+     * @return A <code>String</code> representation of all the
+     * current tasks to be displayed on the UI.
+     */
     public String displayTasks() {
         if (storage.getTasks().isEmpty()) {
             return "There are no tasks in the list.";
@@ -77,6 +95,14 @@ public class CommandParser {
         return sb.toString();
     }
 
+    /**
+     * Marks the task of the specified number as completed.
+     * @param taskNumber The index of the task to be mark as completed.
+     * @return A <code>String</code> of the outcome of marking the task
+     * at the specified index as complete.
+     * @throws ButtercupException If taskNumber is not a valid number
+     * (i.e. taskNumber <= 0 etc.)
+     */
     public String mark(int taskNumber) throws ButtercupException {
         if (storage.getTasks().isEmpty()) {
             throw new ButtercupException("There are no tasks in the list.");
@@ -90,6 +116,14 @@ public class CommandParser {
         return "Nice! I've marked this task as done:\n" + task.toString();
     }
 
+    /**
+     * Marks the task of the specified number as not completed.
+     * @param taskNumber The index of the task to be mark as not completed.
+     * @return A <code>String</code> of the outcome of marking the task
+     * at the specified index as incomplete.
+     * @throws ButtercupException If taskNumber is not a valid number
+     * (i.e. taskNumber <= 0 etc.)
+     */
     public String unmark(int taskNumber) throws ButtercupException {
         if (storage.getTasks().isEmpty()) {
             throw new ButtercupException("There are no tasks in the list.");
@@ -103,6 +137,14 @@ public class CommandParser {
         return "OK, I've marked this task as not done yet:\n" + task.toString();
     }
 
+    /**
+     * Creates and adds a new task to the current list of tasks.
+     * @param input The description of the task to be added.
+     * @return A <code>String</code> of the outcome of creating and
+     * adding the new task.
+     * @throws ButtercupException If the input is invalid or of invalid
+     * format
+     */
     public String addTask(String input) throws ButtercupException {
         Task newTask = null;
         if (input.startsWith("todo ")) {
@@ -167,6 +209,15 @@ public class CommandParser {
         return str;
     }
 
+    /**
+     * Removes the task of the specified number from the list
+     * of current tasks.
+     * @param taskNumber The index of the task to be removed.
+     * @return A <code>String</code> of the outcome of removing the task
+     * at the specified index from the list of current tasks.
+     * @throws ButtercupException If taskNumber is not a valid number
+     * (i.e. taskNumber <= 0)
+     */
     private String deleteTask(int taskNumber) throws ButtercupException {
         if (this.storage.getTasks().isEmpty()) {
             throw new ButtercupException("There are no tasks in the list.");
@@ -179,6 +230,14 @@ public class CommandParser {
         return "Noted! I've removed this task:\n" + task.toString();
     }
 
+    /**
+     * Handles invalid Todo, Deadline and Event formats and throws
+     * an exception displaying the right formats for the respective
+     * tasks.
+     * @param input The input entered in by the user.
+     * @throws ButtercupException If the input entered in by the user
+     * is invalid
+     */
     private void handleInvalidTasks(String input) throws ButtercupException {
         if (input.equals("todo")) {
             throw new ButtercupException("Invalid command, the description of a " + input + " cannot be left empty. Try todo {description} instead.");
