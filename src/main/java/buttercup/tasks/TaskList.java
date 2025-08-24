@@ -33,6 +33,12 @@ public class TaskList {
         return this.tasks.isEmpty();
     }
 
+    public List<Task> filterByKeyword(String keyword) {
+        return this.tasks.stream()
+                .filter(task -> task.getDescription().equals(keyword))
+                .toList();
+    }
+
     @Override
     public String toString() {
         int taskNumber = 1;
