@@ -35,7 +35,7 @@ public class TaskList {
 
     public List<Task> filterByKeyword(String keyword) {
         return this.tasks.stream()
-                .filter(task -> task.getDescription().equals(keyword))
+                .filter(task -> task.getDescription().contains(keyword))
                 .toList();
     }
 
