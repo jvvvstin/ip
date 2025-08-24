@@ -10,6 +10,7 @@ import buttercup.tasks.Deadline;
 import buttercup.tasks.Event;
 import buttercup.tasks.Task;
 import buttercup.tasks.Todo;
+import buttercup.tasks.TaskList;
 
 import buttercup.utils.DateTimeFormatUtils;
 
@@ -40,6 +41,9 @@ public class CommandParser {
             break;
         case MARK:
             try {
+                if (!input.startsWith("mark ")) {
+                    throw new ButtercupException("Invalid mark command, try mark {taskNumber} instead.");
+                }
                 int taskNumber = Integer.parseInt(input.substring(5).trim());
                 result = mark(taskNumber);
             } catch (NumberFormatException e) {
@@ -50,6 +54,9 @@ public class CommandParser {
             break;
         case UNMARK:
             try {
+                if (!input.startsWith("unmark ")) {
+                    throw new ButtercupException("Invalid unmark command, try unmark {taskNumber} instead.");
+                }
                 int taskNumber = Integer.parseInt(input.substring(7).trim());
                 result = unmark(taskNumber);
             } catch (NumberFormatException e) {
@@ -69,6 +76,9 @@ public class CommandParser {
             break;
         case DELETE:
             try {
+                if (!input.startsWith("delete ")) {
+                    throw new ButtercupException("Invalid delete command, try delete {taskNumber} instead.");
+                }
                 int taskNumber = Integer.parseInt(input.substring(7).trim());
                 result = deleteTask(taskNumber);
             } catch (NumberFormatException e) {
@@ -77,6 +87,16 @@ public class CommandParser {
                 System.out.println(e);
             }
             break;
+        case FIND:
+            try {
+                if (!input.startsWith("find ")) {
+                    throw new ButtercupException("Invalid find command, try find {keyword} instead.");
+                }
+                String keyword =  input.substring(5).trim();
+                result = findTask(keyword);
+            } catch (ButtercupException e) {
+                System.out.println(e);
+            }
         default:
             return result;
         }
@@ -250,5 +270,18 @@ public class CommandParser {
         } else {
             throw new ButtercupException("Invalid command, the description of a " + input + " cannot be left empty. Try event {description} /from {start} /to {end} instead.");
         }
+    }
+
+    private String findTask(String keyword) throws ButtercupException {
+        if (keyword.isEmpty()) {
+            throw new ButtercupException("No keyword provided! Try find {keyword} instead.");
+        }
+        TaskList filteredTasks = new TaskList(storage.getTasks().filterByKeyword(keyword));
+        if (filteredTasks.isEmpty()) {
+            return "There are no tasks matching the keyword: " + keyword;
+        }
+        StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
+        sb.append(filteredTasks);
+        return sb.toString();
     }
 }

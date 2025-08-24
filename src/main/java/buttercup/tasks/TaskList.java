@@ -71,6 +71,12 @@ public class TaskList {
         return this.tasks.isEmpty();
     }
 
+    public List<Task> filterByKeyword(String keyword) {
+        return this.tasks.stream()
+                .filter(task -> task.getDescription().contains(keyword))
+                .toList();
+    }
+
     /**
      * Returns a <code>String</code> representation of the TaskList object.
      * @return A <code>String</code> representation of the TaskList object.
