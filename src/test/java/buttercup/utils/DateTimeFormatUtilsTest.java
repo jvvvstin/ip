@@ -1,11 +1,14 @@
 package buttercup.utils;
 
-import buttercup.exceptions.ButtercupException;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import buttercup.exceptions.ButtercupException;
 
 public class DateTimeFormatUtilsTest {
     @Test
@@ -24,8 +27,8 @@ public class DateTimeFormatUtilsTest {
                     DateTimeFormatUtils.getLocalDateTimeFromString("1 Jan 2025 0000"));
             fail();
         } catch (Exception e) {
-            assertEquals("Invalid date time format. Please use date formats like 'yyyy-MM-dd HHmm' " +
-                    "(e.g. 2019-09-15 1800) or 'd/M/yyyy HHmm' (e.g. 13/9/2015 1800)",
+            assertEquals("Invalid date time format. Please use date formats like 'yyyy-MM-dd HHmm' "
+                            + "(e.g. 2019-09-15 1800) or 'd/M/yyyy HHmm' (e.g. 13/9/2015 1800)",
                     e.getMessage());
         }
     }
@@ -37,8 +40,8 @@ public class DateTimeFormatUtilsTest {
                     DateTimeFormatUtils.getLocalDateTimeFromString(null));
             fail();
         } catch (Exception e) {
-            assertThrows(NullPointerException.class,
-                    () -> DateTimeFormatUtils.getLocalDateTimeFromString(null));
+            assertThrows(NullPointerException.class, () ->
+                    DateTimeFormatUtils.getLocalDateTimeFromString(null));
         }
     }
 

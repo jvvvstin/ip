@@ -1,6 +1,7 @@
 package buttercup.tasks;
 
 import java.time.LocalDateTime;
+
 import buttercup.utils.DateTimeFormatUtils;
 
 /**
@@ -12,12 +13,25 @@ public class Event extends Task {
     protected LocalDateTime start;
     protected LocalDateTime end;
 
+    /**
+     * Constructor for Event class.
+     * @param description Description of the event.
+     * @param start Start date time of the event.
+     * @param end Ending date time of the event.
+     */
     public Event(String description, LocalDateTime start, LocalDateTime end) {
         super(description);
         this.start = start;
         this.end = end;
     }
 
+    /**
+     * Constructor for Event class.
+     * @param description Description of the event.
+     * @param isDone Boolean variable for whether the event is completed.
+     * @param start Start date time of the event.
+     * @param end End date time of the event.
+     */
     public Event(String description, boolean isDone, LocalDateTime start, LocalDateTime end) {
         super(description, isDone);
         this.start = start;
@@ -39,7 +53,7 @@ public class Event extends Task {
      * Returns a <code>String</code> representation of the Event object
      * to be written in a save file.
      * @return A <code>String</code> representation of the Event object
-     * to be written in a save file.
+     *     to be written in a save file.
      */
     @Override
     public String toFileString() {

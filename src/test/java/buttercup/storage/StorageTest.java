@@ -1,11 +1,10 @@
 package buttercup.storage;
 
-import buttercup.exceptions.ButtercupException;
-import buttercup.tasks.Task;
-import buttercup.tasks.TaskList;
-import buttercup.tasks.Todo;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,7 +12,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import buttercup.exceptions.ButtercupException;
+import buttercup.tasks.Task;
+import buttercup.tasks.TaskList;
+import buttercup.tasks.Todo;
 
 public class StorageTest {
 
@@ -71,9 +76,9 @@ public class StorageTest {
     @Test
     void loadTasks_parsesInvalidLines_success() throws Exception {
         writeLines(List.of(
-           "X | 0 | unknown type",
-           "T | notABool | broken",
-           "D | 1" // too few fields
+            "X | 0 | unknown type",
+            "T | notABool | broken",
+            "D | 1" // too few fields
         ));
         Storage storage = load();
         TaskList tasks = storage.getTasks();
@@ -102,23 +107,23 @@ public class StorageTest {
     @Test
     void deleteTask_deleteTaskFromList_success() throws Exception {
         writeLines(List.of(
-           "T | 0 | A",
-           "T | 1 | B",
-           "T | 0 | C"
+            "T | 0 | A",
+            "T | 1 | B",
+            "T | 0 | C"
         ));
         Storage storage = load();
 
         Task removed = storage.deleteTask(1);
         assertEquals("B", removed.getDescription());
         assertEquals(2, storage.getTasks().getSize());
-        assertEquals("A",  storage.getTasks().getTask(0).getDescription());
-        assertEquals("C",  storage.getTasks().getTask(1).getDescription());
+        assertEquals("A", storage.getTasks().getTask(0).getDescription());
+        assertEquals("C", storage.getTasks().getTask(1).getDescription());
 
         // fresh load to confirm persistence
         Storage reloaded = load();
         assertEquals(2, reloaded.getTasks().getSize());
-        assertEquals("A",  reloaded.getTasks().getTask(0).getDescription());
-        assertEquals("C",  reloaded.getTasks().getTask(1).getDescription());
+        assertEquals("A", reloaded.getTasks().getTask(0).getDescription());
+        assertEquals("C", reloaded.getTasks().getTask(1).getDescription());
     }
 
     @Test
@@ -127,7 +132,9 @@ public class StorageTest {
         Storage storage = load();
 
         int before = storage.getTasks().getSize();
-        assertThrows(IndexOutOfBoundsException.class, () -> {storage.deleteTask(1);});
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            storage.deleteTask(1);
+        });
 
         assertEquals(before, storage.getTasks().getSize());
         assertEquals(List.of("T | 0 | A"), readLines(), "File should remain unchanged");
@@ -155,6 +162,8 @@ public class StorageTest {
         writeLines(List.of(" T | 0 | A"));
         Storage storage = load();
 
-        assertThrows(NullPointerException.class, () -> {storage.setTaskCompletion(null, true);});
+        assertThrows(NullPointerException.class, () -> {
+            storage.setTaskCompletion(null, true);
+        });
     }
 }

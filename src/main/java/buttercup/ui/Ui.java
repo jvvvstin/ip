@@ -1,26 +1,25 @@
 package buttercup.ui;
 
-import buttercup.commands.Command;
-
-import buttercup.parsers.CommandParser;
-
-import buttercup.storage.Storage;
-
-import buttercup.exceptions.ButtercupException;
-
 import java.util.Scanner;
+
+import buttercup.commands.Command;
+import buttercup.exceptions.ButtercupException;
+import buttercup.parsers.CommandParser;
+import buttercup.storage.Storage;
 
 /**
  * Represents the UI of Buttercup chatbot and deals with interactions
  * with the user, such as displaying output.
  */
 public class Ui {
-
-    private Scanner scanner;
     private CommandParser parser;
 
+    /**
+     * Constructor for Ui class
+     * @param storage A storage object for the UI
+     * @see Storage
+     */
     public Ui(Storage storage) {
-        this.scanner = new Scanner(System.in);
         this.parser = new CommandParser(storage);
     }
 
@@ -36,8 +35,8 @@ public class Ui {
      */
     public void greet() {
         displayLine();
-        String message = "Hello! I'm Buttercup\n" +
-                "What can I do for you?";
+        String message = "Hello! I'm Buttercup\n"
+                + "What can I do for you?";
         System.out.println(message);
         displayLine();
     }

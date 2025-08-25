@@ -1,17 +1,13 @@
 package buttercup.parsers;
 
 import buttercup.commands.Command;
-
 import buttercup.exceptions.ButtercupException;
-
 import buttercup.storage.Storage;
-
 import buttercup.tasks.Deadline;
 import buttercup.tasks.Event;
 import buttercup.tasks.Task;
-import buttercup.tasks.Todo;
 import buttercup.tasks.TaskList;
-
+import buttercup.tasks.Todo;
 import buttercup.utils.DateTimeFormatUtils;
 
 /**
@@ -30,7 +26,7 @@ public class CommandParser {
      * @param command A type of command that the user wish to run
      * @param input Input provided by the user
      * @return A <code>String</code> result to be displayed to the
-     * user based on their command
+     *     user based on their command
      * @see Command
      */
     public String processCommand(Command command, String input) {
@@ -92,7 +88,7 @@ public class CommandParser {
                 if (!input.startsWith("find ")) {
                     throw new ButtercupException("Invalid find command, try find {keyword} instead.");
                 }
-                String keyword =  input.substring(5).trim();
+                String keyword = input.substring(5).trim();
                 result = findTask(keyword);
             } catch (ButtercupException e) {
                 System.out.println(e);
@@ -107,7 +103,7 @@ public class CommandParser {
      * Returns a <code>String</code> representation of all the
      * current tasks to be displayed on the UI.
      * @return A <code>String</code> representation of all the
-     * current tasks to be displayed on the UI.
+     *     current tasks to be displayed on the UI.
      */
     public String displayTasks() {
         if (storage.getTasks().isEmpty()) {
@@ -123,9 +119,9 @@ public class CommandParser {
      * Marks the task of the specified number as completed.
      * @param taskNumber The index of the task to be mark as completed.
      * @return A <code>String</code> of the outcome of marking the task
-     * at the specified index as complete.
+     *     at the specified index as complete.
      * @throws ButtercupException If taskNumber is not a valid number
-     * (i.e. taskNumber <= 0 etc.)
+     *     (i.e. taskNumber <= 0 etc.)
      */
     public String mark(int taskNumber) throws ButtercupException {
         if (storage.getTasks().isEmpty()) {
@@ -144,9 +140,9 @@ public class CommandParser {
      * Marks the task of the specified number as not completed.
      * @param taskNumber The index of the task to be mark as not completed.
      * @return A <code>String</code> of the outcome of marking the task
-     * at the specified index as incomplete.
+     *     at the specified index as incomplete.
      * @throws ButtercupException If taskNumber is not a valid number
-     * (i.e. taskNumber <= 0 etc.)
+     *     (i.e. taskNumber <= 0 etc.)
      */
     public String unmark(int taskNumber) throws ButtercupException {
         if (storage.getTasks().isEmpty()) {
@@ -165,9 +161,9 @@ public class CommandParser {
      * Creates and adds a new task to the current list of tasks.
      * @param input The description of the task to be added.
      * @return A <code>String</code> of the outcome of creating and
-     * adding the new task.
+     *     adding the new task.
      * @throws ButtercupException If the input is invalid or of invalid
-     * format
+     *     format
      */
     public String addTask(String input) throws ButtercupException {
         Task newTask = null;
@@ -176,49 +172,62 @@ public class CommandParser {
         } else if (input.startsWith("deadline ")) {
             input = input.substring(9);
             if (!input.contains("/by")) {
-                throw new ButtercupException("Invalid format, deadline command should contain '/by' and be of the format deadline {description} /by {deadline} instead.");
+                throw new ButtercupException("Invalid format, deadline command should contain '/by'"
+                        + " and be of the format deadline {description} /by {deadline} instead.");
             }
             String[] splitted = input.split("/by");
             if (splitted.length != 2) {
-                throw new ButtercupException("Invalid format, deadline command should be of the format deadline {description} /by {deadline} instead.");
+                throw new ButtercupException("Invalid format, deadline command should be of the format deadline "
+                        + "{description} /by {deadline} instead.");
             }
             if (splitted[0].trim().isEmpty()) {
-                throw new ButtercupException("Invalid format, deadline's description should not be empty and should be of the format deadline {description} /by {deadline} instead.");
+                throw new ButtercupException("Invalid format, deadline's description should not be empty and should "
+                        + "be of the format deadline {description} /by {deadline} instead.");
             }
             if (splitted[1].trim().isEmpty()) {
-                throw new ButtercupException("Invalid format, deadline's deadline should not be empty and should be of the format deadline {description} /by {deadline} instead.");
+                throw new ButtercupException("Invalid format, deadline's deadline should not be empty and should "
+                        + "be of the format deadline {description} /by {deadline} instead.");
             }
 
-            newTask = new Deadline(splitted[0].trim(), DateTimeFormatUtils.getLocalDateTimeFromString(splitted[1].trim()));
+            newTask = new Deadline(splitted[0].trim(),
+                    DateTimeFormatUtils.getLocalDateTimeFromString(splitted[1].trim()));
         } else if (input.startsWith("event ")) {
             input = input.substring(6).trim();
             if (!input.contains("/from")) {
-                throw new ButtercupException("Invalid format, event command should contain '/from' and be of the format event {description} /from {start} /to {end} instead.");
+                throw new ButtercupException("Invalid format, event command should contain '/from' and be of the format"
+                        + " event {description} /from {start} /to {end} instead.");
             }
             if (!input.contains("/to")) {
-                throw new ButtercupException("Invalid format, event command should contain '/to' and be of the format event {description} /from {start} /to {end} instead.");
+                throw new ButtercupException("Invalid format, event command should contain '/to' and be of the format "
+                        + "event {description} /from {start} /to {end} instead.");
             }
             String[] splitted = input.split("/from");
             if (splitted.length != 2 || splitted[1].trim().isEmpty()) {
-                throw new ButtercupException("Invalid format, event command should be of the format event {description} /from {start} /to {end} instead.");
+                throw new ButtercupException("Invalid format, event command should be of the format event {description}"
+                        + " /from {start} /to {end} instead.");
             }
             String description = splitted[0].trim();
             if (description.isEmpty()) {
-                throw new ButtercupException("Invalid format, event's description should not be empty and should be of the format event {description} /from {start} /to {end} instead.");
+                throw new ButtercupException("Invalid format, event's description should not be empty and should be of"
+                        + " the format event {description} /from {start} /to {end} instead.");
             }
             splitted = splitted[1].split("/to");
             if (splitted.length != 2) {
-                throw new ButtercupException("Invalid format, event command should be of the format event {description} /from {start} /to {end} instead.");
+                throw new ButtercupException("Invalid format, event command should be of the format event {description}"
+                        + " /from {start} /to {end} instead.");
             }
             String from = splitted[0].trim();
             String to = splitted[1].trim();
             if (from.isEmpty()) {
-                throw new ButtercupException("Invalid format, event's start should not be empty and should be of the format event {description} /from {start} /to {end} instead.");
+                throw new ButtercupException("Invalid format, event's start should not be empty and should be of the"
+                        + " format event {description} /from {start} /to {end} instead.");
             }
             if (to.isEmpty()) {
-                throw new ButtercupException("Invalid format, event's end should not be empty and should be of the format event {description} /from {start} /to {end} instead.");
+                throw new ButtercupException("Invalid format, event's end should not be empty and should be of the"
+                        + " format event {description} /from {start} /to {end} instead.");
             }
-            newTask = new Event(description, DateTimeFormatUtils.getLocalDateTimeFromString(from), DateTimeFormatUtils.getLocalDateTimeFromString(to));
+            newTask = new Event(description, DateTimeFormatUtils.getLocalDateTimeFromString(from),
+                    DateTimeFormatUtils.getLocalDateTimeFromString(to));
         } else {
             handleInvalidTasks(input);
             return "";
@@ -226,9 +235,9 @@ public class CommandParser {
 
         this.storage.addTask(newTask);
 
-        String str = String.format("Got it. I've added this task:\n" +
-                        "%s\n" +
-                        "Now you have %d %s in the list.",
+        String str = String.format("Got it. I've added this task:\n"
+                        + "%s\n"
+                        + "Now you have %d %s in the list.",
                 newTask, this.storage.getTasks().getSize(), this.storage.getTasks().getSize() == 1 ? "task" : "tasks");
         return str;
     }
@@ -238,9 +247,9 @@ public class CommandParser {
      * of current tasks.
      * @param taskNumber The index of the task to be removed.
      * @return A <code>String</code> of the outcome of removing the task
-     * at the specified index from the list of current tasks.
+     *     at the specified index from the list of current tasks.
      * @throws ButtercupException If taskNumber is not a valid number
-     * (i.e. taskNumber <= 0)
+     *     (i.e. taskNumber <= 0)
      */
     private String deleteTask(int taskNumber) throws ButtercupException {
         if (this.storage.getTasks().isEmpty()) {
@@ -260,15 +269,18 @@ public class CommandParser {
      * tasks.
      * @param input The input entered in by the user.
      * @throws ButtercupException If the input entered in by the user
-     * is invalid
+     *     is invalid
      */
     private void handleInvalidTasks(String input) throws ButtercupException {
         if (input.equals("todo")) {
-            throw new ButtercupException("Invalid command, the description of a " + input + " cannot be left empty. Try todo {description} instead.");
+            throw new ButtercupException("Invalid command, the description of a " + input + " cannot be left empty. Try"
+                    + " todo {description} instead.");
         } else if (input.equals("deadline")) {
-            throw new ButtercupException("Invalid command, the description of a " + input + " cannot be left empty. Try deadline {description} /by {deadline} instead.");
+            throw new ButtercupException("Invalid command, the description of a " + input + " cannot be left empty. Try"
+                    + " deadline {description} /by {deadline} instead.");
         } else {
-            throw new ButtercupException("Invalid command, the description of a " + input + " cannot be left empty. Try event {description} /from {start} /to {end} instead.");
+            throw new ButtercupException("Invalid command, the description of a " + input + " cannot be left empty. Try"
+                    + " event {description} /from {start} /to {end} instead.");
         }
     }
 
