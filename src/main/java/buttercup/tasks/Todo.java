@@ -25,7 +25,7 @@ public class Todo extends Task {
      * Returns a <code>String</code> representation of the Todo object
      * to be written in a save file.
      * @return A <code>String</code> representation of the Todo object
-     * to be written in a save file.
+     *     to be written in a save file.
      */
     @Override
     public String toFileString() {

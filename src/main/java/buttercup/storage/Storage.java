@@ -1,13 +1,5 @@
 package buttercup.storage;
 
-import buttercup.exceptions.ButtercupException;
-
-import buttercup.tasks.Task;
-import buttercup.tasks.Todo;
-import buttercup.tasks.Deadline;
-import buttercup.tasks.Event;
-import buttercup.tasks.TaskList;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -16,6 +8,13 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import buttercup.exceptions.ButtercupException;
+import buttercup.tasks.Deadline;
+import buttercup.tasks.Event;
+import buttercup.tasks.Task;
+import buttercup.tasks.TaskList;
+import buttercup.tasks.Todo;
+
 /**
  * Represents a file located in the user's directory. A <code>Storage</code>
  * object corresponds to file represented by two Strings <code>dir/fileName</code>
@@ -23,6 +22,10 @@ import java.util.List;
 public class Storage {
     private TaskList tasks;
     private final Path file;
+
+    private Storage(Path file) {
+        this.file = file;
+    }
 
     /**
      * Returns a Storage object that represents the file used for saving.
@@ -62,10 +65,6 @@ public class Storage {
         Storage storage = new Storage(file);
         storage.tasks = storage.loadTasks();
         return storage;
-    }
-
-    private Storage(Path file) {
-        this.file = file;
     }
 
     /**
@@ -108,6 +107,8 @@ public class Storage {
                     tasks.add(new Event(description, isDone, LocalDateTime.parse(splitted[3]),
                             LocalDateTime.parse(splitted[4])));
                     break;
+                default:
+                    throw new ButtercupException("");
                 }
             } catch (Exception e) {
                 System.out.println("Invalid task format, skipping and removing corrupted line: " + line);

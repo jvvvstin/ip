@@ -1,9 +1,11 @@
 package buttercup;
 
 import buttercup.storage.Storage;
-
 import buttercup.ui.Ui;
 
+/**
+ * Represents the Buttercup chatbot.
+ */
 public class Buttercup {
 
     private static final String TASKS_FILEPATH = "data/";

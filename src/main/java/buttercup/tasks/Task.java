@@ -9,11 +9,20 @@ public abstract class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Constructor for Task class.
+     * @param description Description of the Task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
+    /**
+     * Constructor for Task class.
+     * @param description Description of the Task.
+     * @param isDone Boolean value for whether the task is completed.
+     */
     public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
@@ -23,7 +32,7 @@ public abstract class Task {
      * Returns a <code>String</code> representation of whether the task is
      * completed or not.
      * @return A <code>String</code> representation of whether the task is
-     * completed or not
+     *     completed or not
      */
     public String getStatusIcon() {
         return isDone ? "X" : " ";
@@ -46,7 +55,7 @@ public abstract class Task {
     /**
      * Returns the description of the task.
      * @return A <code>String</code> representing the description
-     * of the task.
+     *     of the task.
      */
     public String getDescription() {
         return this.description;
@@ -55,7 +64,7 @@ public abstract class Task {
     /**
      * Returns whether the task is completed or not.
      * @return A <code>boolean</code> value representing whether the
-     * task is completed or not.
+     *     task is completed or not.
      */
     public boolean isDone() {
         return this.isDone;
@@ -73,7 +82,7 @@ public abstract class Task {
      * Returns a <code>String</code> representation of the Task object
      * to be written in a save file.
      * @return A <code>String</code> representation of the Task object
-     * to be written in a save file.
+     *     to be written in a save file.
      */
     public String toFileString() {
         return String.format("%s | %s", this.isDone ? "1" : "0", this.description);

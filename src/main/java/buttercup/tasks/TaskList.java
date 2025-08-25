@@ -37,7 +37,7 @@ public class TaskList {
     /**
      * Returns the total number of Tasks in the list.
      * @return An <code>int</code> representing the total number of
-     * tasks in the list.
+     *     tasks in the list.
      */
     public int getSize() {
         return this.tasks.size();
@@ -65,12 +65,17 @@ public class TaskList {
      * Returns a <code>boolean</code> value representing whether the task
      * list is empty.
      * @return A <code>boolean</code> value representing whether the task
-     * list is empty.
+     *     list is empty.
      */
     public boolean isEmpty() {
         return this.tasks.isEmpty();
     }
 
+    /**
+     * Returns a list of tasks which descriptions contains the specified keyword.
+     * @param keyword The keyword that is used to filter the list of tasks.
+     * @return A list of tasks which description contains the specified keyword.
+     */
     public List<Task> filterByKeyword(String keyword) {
         return this.tasks.stream()
                 .filter(task -> task.getDescription().contains(keyword))
