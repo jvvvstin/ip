@@ -1,10 +1,11 @@
 package buttercup.utils;
 
-import buttercup.exceptions.ButtercupException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import buttercup.exceptions.ButtercupException;
+
 
 /**
  * A util class for processing date time in <code>String</code> formats
@@ -23,7 +24,7 @@ public class DateTimeFormatUtils {
      * is of a valid/accepted date time format.
      * @param dateTimeString The date time String to be converted
      * @return A <code>LocalDateTime</code> object based on the date time
-     * String provided
+     *     String provided
      * @throws ButtercupException If the date time String provided is not of an accepted format
      */
     public static LocalDateTime getLocalDateTimeFromString(String dateTimeString) throws ButtercupException {
@@ -36,8 +37,8 @@ public class DateTimeFormatUtils {
             return LocalDateTime.parse(dateTimeString, FORMATTER_2);
         } catch (DateTimeParseException e) {
             // ignore
-            throw new ButtercupException("Invalid date time format. Please use date formats like 'yyyy-MM-dd HHmm' " +
-                    "(e.g. 2019-09-15 1800) or 'd/M/yyyy HHmm' (e.g. 13/9/2015 1800)");
+            throw new ButtercupException("Invalid date time format. Please use date formats like 'yyyy-MM-dd HHmm' "
+                    + "(e.g. 2019-09-15 1800) or 'd/M/yyyy HHmm' (e.g. 13/9/2015 1800)");
         }
     }
 

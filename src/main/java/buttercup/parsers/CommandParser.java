@@ -43,9 +43,12 @@ public class CommandParser {
                 int taskNumber = Integer.parseInt(input.substring(5).trim());
                 result = mark(taskNumber);
             } catch (NumberFormatException e) {
-                System.out.println("Invalid task number! Please enter in a valid task number e.g. mark 7.");
+                String errorMessage = "Invalid task number! Please enter in a valid task number e.g. mark 7.";
+                System.out.println(errorMessage);
+                return errorMessage;
             } catch (ButtercupException e) {
                 System.out.println(e);
+                return e.toString();
             }
             break;
         case UNMARK:
@@ -56,9 +59,12 @@ public class CommandParser {
                 int taskNumber = Integer.parseInt(input.substring(7).trim());
                 result = unmark(taskNumber);
             } catch (NumberFormatException e) {
-                System.out.println("Invalid task number! Please enter in a valid task number e.g. unmark 7.");
+                String errorMessage = "Invalid task number! Please enter in a valid task number e.g. unmark 7.";
+                System.out.println(errorMessage);
+                return errorMessage;
             } catch (ButtercupException e) {
                 System.out.println(e);
+                return e.toString();
             }
             break;
         case TODO:
@@ -68,6 +74,7 @@ public class CommandParser {
                 result = addTask(input);
             } catch (ButtercupException e) {
                 System.out.println(e);
+                return e.toString();
             }
             break;
         case DELETE:
@@ -78,9 +85,12 @@ public class CommandParser {
                 int taskNumber = Integer.parseInt(input.substring(7).trim());
                 result = deleteTask(taskNumber);
             } catch (NumberFormatException e) {
-                System.out.println("Invalid task number! Please enter in a valid task number e.g. delete 7.");
+                String errorMessage = "Invalid task number! Please enter in a valid task number e.g. delete 7.";
+                System.out.println(errorMessage);
+                return errorMessage;
             } catch (ButtercupException e) {
                 System.out.println(e);
+                return e.toString();
             }
             break;
         case FIND:
@@ -92,7 +102,11 @@ public class CommandParser {
                 result = findTask(keyword);
             } catch (ButtercupException e) {
                 System.out.println(e);
+                return e.toString();
             }
+            break;
+        case BYE:
+            return "Bye. Hope to see you again soon!";
         default:
             return result;
         }
