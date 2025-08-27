@@ -43,8 +43,14 @@ public class Buttercup {
     }
 
     public static void main(String[] args) {
-        startGui();
-//        startConsole();
+        if (args.length == 0) {
+            startGui();
+        } else if (args.length == 1 && args[0].equals("--console")) {
+            startConsoleUi();
+        } else {
+            System.out.println("Enter `java -jar Buttercup.jar` for GUI or `java -jar Buttercup.jar --console` for"
+                    + " console UI.");
+        }
     }
 
     /**
@@ -57,7 +63,7 @@ public class Buttercup {
     /**
      * Starts the Buttercup chatbot on console.
      */
-    public static void startConsole() {
+    public static void startConsoleUi() {
         Storage storage = Storage.of(TASKS_FILEPATH, TASKS_FILENAME);
         Ui ui = new Ui(storage);
         ui.start();
