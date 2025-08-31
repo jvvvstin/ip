@@ -16,7 +16,13 @@ import buttercup.utils.DateTimeFormatUtils;
 public class CommandParser {
     private final Storage storage;
 
+    /**
+     * Constructor for a CommandParser object.
+     * @param storage A Storage object that handles the save file logic.
+     * @see Storage
+     */
     public CommandParser(Storage storage) {
+        assert storage != null : "Storage cannot be null";
         this.storage = storage;
     }
 
