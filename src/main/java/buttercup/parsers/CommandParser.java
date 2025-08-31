@@ -180,68 +180,13 @@ public class CommandParser {
      *     format
      */
     public String addTask(String input) throws ButtercupException {
-        Task newTask = null;
+        Task newTask;
         if (input.startsWith("todo ")) {
-            newTask = new Todo(input.substring(5).trim());
+            newTask = handleAddTodo(input);
         } else if (input.startsWith("deadline ")) {
-            input = input.substring(9);
-            if (!input.contains("/by")) {
-                throw new ButtercupException("Invalid format, deadline command should contain '/by'"
-                        + " and be of the format deadline {description} /by {deadline} instead.");
-            }
-            String[] splitted = input.split("/by");
-            if (splitted.length != 2) {
-                throw new ButtercupException("Invalid format, deadline command should be of the format deadline "
-                        + "{description} /by {deadline} instead.");
-            }
-            if (splitted[0].trim().isEmpty()) {
-                throw new ButtercupException("Invalid format, deadline's description should not be empty and should "
-                        + "be of the format deadline {description} /by {deadline} instead.");
-            }
-            if (splitted[1].trim().isEmpty()) {
-                throw new ButtercupException("Invalid format, deadline's deadline should not be empty and should "
-                        + "be of the format deadline {description} /by {deadline} instead.");
-            }
-
-            newTask = new Deadline(splitted[0].trim(),
-                    DateTimeFormatUtils.getLocalDateTimeFromString(splitted[1].trim()));
+            newTask = handleAddDeadline(input);
         } else if (input.startsWith("event ")) {
-            input = input.substring(6).trim();
-            if (!input.contains("/from")) {
-                throw new ButtercupException("Invalid format, event command should contain '/from' and be of the format"
-                        + " event {description} /from {start} /to {end} instead.");
-            }
-            if (!input.contains("/to")) {
-                throw new ButtercupException("Invalid format, event command should contain '/to' and be of the format "
-                        + "event {description} /from {start} /to {end} instead.");
-            }
-            String[] splitted = input.split("/from");
-            if (splitted.length != 2 || splitted[1].trim().isEmpty()) {
-                throw new ButtercupException("Invalid format, event command should be of the format event {description}"
-                        + " /from {start} /to {end} instead.");
-            }
-            String description = splitted[0].trim();
-            if (description.isEmpty()) {
-                throw new ButtercupException("Invalid format, event's description should not be empty and should be of"
-                        + " the format event {description} /from {start} /to {end} instead.");
-            }
-            splitted = splitted[1].split("/to");
-            if (splitted.length != 2) {
-                throw new ButtercupException("Invalid format, event command should be of the format event {description}"
-                        + " /from {start} /to {end} instead.");
-            }
-            String from = splitted[0].trim();
-            String to = splitted[1].trim();
-            if (from.isEmpty()) {
-                throw new ButtercupException("Invalid format, event's start should not be empty and should be of the"
-                        + " format event {description} /from {start} /to {end} instead.");
-            }
-            if (to.isEmpty()) {
-                throw new ButtercupException("Invalid format, event's end should not be empty and should be of the"
-                        + " format event {description} /from {start} /to {end} instead.");
-            }
-            newTask = new Event(description, DateTimeFormatUtils.getLocalDateTimeFromString(from),
-                    DateTimeFormatUtils.getLocalDateTimeFromString(to));
+            newTask = handleAddEvent(input);
         } else {
             handleInvalidTasks(input);
             return "";
@@ -254,6 +199,73 @@ public class CommandParser {
                         + "Now you have %d %s in the list.",
                 newTask, this.storage.getTasks().getSize(), this.storage.getTasks().getSize() == 1 ? "task" : "tasks");
         return str;
+    }
+
+    private Task handleAddTodo(String input) {
+        return new Todo(input.substring(5).trim());
+    }
+
+    private Task handleAddDeadline(String input) throws ButtercupException {
+        input = input.substring(9);
+        if (!input.contains("/by")) {
+            throw new ButtercupException("Invalid format, deadline command should contain '/by'"
+                    + " and be of the format deadline {description} /by {deadline} instead.");
+        }
+        String[] splitted = input.split("/by");
+        if (splitted.length != 2) {
+            throw new ButtercupException("Invalid format, deadline command should be of the format deadline "
+                    + "{description} /by {deadline} instead.");
+        }
+        if (splitted[0].trim().isEmpty()) {
+            throw new ButtercupException("Invalid format, deadline's description should not be empty and should "
+                    + "be of the format deadline {description} /by {deadline} instead.");
+        }
+        if (splitted[1].trim().isEmpty()) {
+            throw new ButtercupException("Invalid format, deadline's deadline should not be empty and should "
+                    + "be of the format deadline {description} /by {deadline} instead.");
+        }
+
+        return new Deadline(splitted[0].trim(),
+                DateTimeFormatUtils.getLocalDateTimeFromString(splitted[1].trim()));
+    }
+
+    private Task handleAddEvent(String input) throws ButtercupException {
+        input = input.substring(6).trim();
+        if (!input.contains("/from")) {
+            throw new ButtercupException("Invalid format, event command should contain '/from' and be of the format"
+                    + " event {description} /from {start} /to {end} instead.");
+        }
+        if (!input.contains("/to")) {
+            throw new ButtercupException("Invalid format, event command should contain '/to' and be of the format "
+                    + "event {description} /from {start} /to {end} instead.");
+        }
+        String[] splitted = input.split("/from");
+        if (splitted.length != 2 || splitted[1].trim().isEmpty()) {
+            throw new ButtercupException("Invalid format, event command should be of the format event {description}"
+                    + " /from {start} /to {end} instead.");
+        }
+        String description = splitted[0].trim();
+        if (description.isEmpty()) {
+            throw new ButtercupException("Invalid format, event's description should not be empty and should be of"
+                    + " the format event {description} /from {start} /to {end} instead.");
+        }
+        splitted = splitted[1].split("/to");
+        if (splitted.length != 2) {
+            throw new ButtercupException("Invalid format, event command should be of the format event {description}"
+                    + " /from {start} /to {end} instead.");
+        }
+        String from = splitted[0].trim();
+        String to = splitted[1].trim();
+        if (from.isEmpty()) {
+            throw new ButtercupException("Invalid format, event's start should not be empty and should be of the"
+                    + " format event {description} /from {start} /to {end} instead.");
+        }
+        if (to.isEmpty()) {
+            throw new ButtercupException("Invalid format, event's end should not be empty and should be of the"
+                    + " format event {description} /from {start} /to {end} instead.");
+        }
+        return new Event(description, DateTimeFormatUtils.getLocalDateTimeFromString(from),
+                DateTimeFormatUtils.getLocalDateTimeFromString(to));
     }
 
     /**
