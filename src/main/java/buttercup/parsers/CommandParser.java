@@ -14,6 +14,7 @@ import buttercup.utils.DateTimeFormatUtils;
  * Deals with the logic and making sense of the user's command.
  */
 public class CommandParser {
+
     private final Storage storage;
 
     public CommandParser(Storage storage) {
@@ -37,11 +38,7 @@ public class CommandParser {
             break;
         case MARK:
             try {
-                if (!input.startsWith("mark ")) {
-                    throw new ButtercupException("Invalid mark command, try mark {taskNumber} instead.");
-                }
-                int taskNumber = Integer.parseInt(input.substring(5).trim());
-                result = mark(taskNumber);
+                result = handleMarkTask(input);
             } catch (NumberFormatException e) {
                 String errorMessage = "Invalid task number! Please enter in a valid task number e.g. mark 7.";
                 System.out.println(errorMessage);
@@ -53,11 +50,7 @@ public class CommandParser {
             break;
         case UNMARK:
             try {
-                if (!input.startsWith("unmark ")) {
-                    throw new ButtercupException("Invalid unmark command, try unmark {taskNumber} instead.");
-                }
-                int taskNumber = Integer.parseInt(input.substring(7).trim());
-                result = unmark(taskNumber);
+                result = handleUnmarkTask(input);
             } catch (NumberFormatException e) {
                 String errorMessage = "Invalid task number! Please enter in a valid task number e.g. unmark 7.";
                 System.out.println(errorMessage);
@@ -79,11 +72,7 @@ public class CommandParser {
             break;
         case DELETE:
             try {
-                if (!input.startsWith("delete ")) {
-                    throw new ButtercupException("Invalid delete command, try delete {taskNumber} instead.");
-                }
-                int taskNumber = Integer.parseInt(input.substring(7).trim());
-                result = deleteTask(taskNumber);
+                result = handleDeleteTask(input);
             } catch (NumberFormatException e) {
                 String errorMessage = "Invalid task number! Please enter in a valid task number e.g. delete 7.";
                 System.out.println(errorMessage);
@@ -95,11 +84,7 @@ public class CommandParser {
             break;
         case FIND:
             try {
-                if (!input.startsWith("find ")) {
-                    throw new ButtercupException("Invalid find command, try find {keyword} instead.");
-                }
-                String keyword = input.substring(5).trim();
-                result = findTask(keyword);
+                result = handleFindTask(input);
             } catch (ButtercupException e) {
                 System.out.println(e);
                 return e.toString();
@@ -111,6 +96,38 @@ public class CommandParser {
             return result;
         }
         return result;
+    }
+
+    private String handleMarkTask(String input) throws ButtercupException, NumberFormatException {
+        if (!input.startsWith("mark ")) {
+            throw new ButtercupException("Invalid mark command, try mark {taskNumber} instead.");
+        }
+        int taskNumber = Integer.parseInt(input.substring(5).trim());
+        return mark(taskNumber);
+    }
+
+    private String handleUnmarkTask(String input) throws ButtercupException, NumberFormatException {
+        if (!input.startsWith("unmark ")) {
+            throw new ButtercupException("Invalid unmark command, try unmark {taskNumber} instead.");
+        }
+        int taskNumber = Integer.parseInt(input.substring(7).trim());
+        return unmark(taskNumber);
+    }
+
+    private String handleDeleteTask(String input) throws ButtercupException, NumberFormatException {
+        if (!input.startsWith("delete ")) {
+            throw new ButtercupException("Invalid delete command, try delete {taskNumber} instead.");
+        }
+        int taskNumber = Integer.parseInt(input.substring(7).trim());
+        return deleteTask(taskNumber);
+    }
+
+    private String handleFindTask(String input) throws ButtercupException {
+        if (!input.startsWith("find ")) {
+            throw new ButtercupException("Invalid find command, try find {keyword} instead.");
+        }
+        String keyword = input.substring(5).trim();
+        return findTask(keyword);
     }
 
     /**
