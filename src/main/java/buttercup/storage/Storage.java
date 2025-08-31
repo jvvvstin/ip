@@ -158,10 +158,9 @@ public class Storage {
      * @throws ButtercupException If there was an error writing to save file.
      */
     public void saveTasks(List<Task> tasks) throws ButtercupException {
-        List<String> lines = new ArrayList<>();
-        for (Task task : tasks) {
-            lines.add(task.toFileString());
-        }
+        List<String> lines = tasks.stream()
+                                  .map(Task::toFileString)
+                                  .toList();
         try {
             Files.write(this.file, lines);
         } catch (IOException e) {
