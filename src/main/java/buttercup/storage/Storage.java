@@ -144,6 +144,7 @@ public class Storage {
      * @see Task
      */
     public void setTaskCompletion(Task task, boolean isComplete) throws ButtercupException {
+        assert task != null : "Task cannot be null";
         if (isComplete) {
             task.markAsDone();
         } else {
@@ -176,6 +177,7 @@ public class Storage {
      * @throws ButtercupException If there was an error writing to save file.
      */
     public void addTask(Task task) throws ButtercupException {
+        assert task != null : "Task cannot be null";
         this.tasks.addTask(task);
         saveTasks(this.tasks.getTasks());
     }
