@@ -21,6 +21,7 @@ public class TaskList {
      * @see Task
      */
     public void addTask(Task task) {
+        assert task != null : "Task cannot be null";
         this.tasks.add(task);
     }
 
@@ -31,6 +32,7 @@ public class TaskList {
      * @see Task
      */
     public void removeTask(Task task) {
+        assert task != null : "Task cannot be null";
         this.tasks.remove(task);
     }
 
@@ -50,6 +52,7 @@ public class TaskList {
      * @return The task previously at the specified position.
      */
     public Task getTask(int index) {
+        assert index >= 0 && index < tasks.size() : "Index out of bounds.";
         return this.tasks.get(index);
     }
 

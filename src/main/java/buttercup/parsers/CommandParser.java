@@ -35,7 +35,13 @@ public class CommandParser {
     private static final String TO_FLAG = "/to";
     private static final int INVALID_TASK_NUMBER = 0;
 
+    /**
+     * Constructor for a CommandParser object.
+     * @param storage A Storage object that handles the save file logic.
+     * @see Storage
+     */
     public CommandParser(Storage storage) {
+        assert storage != null : "Storage cannot be null";
         this.storage = storage;
     }
 
