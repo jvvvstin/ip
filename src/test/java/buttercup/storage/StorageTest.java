@@ -28,8 +28,9 @@ public class StorageTest {
     private String fileName = "tasks.txt";
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws IOException {
         tasksFile = Paths.get(dir + fileName);
+        writeLines(List.of());
     }
 
     private void writeLines(List<String> lines) throws IOException {
@@ -46,6 +47,7 @@ public class StorageTest {
 
     @Test
     void of_createsFileWhenMissing_success() throws Exception {
+        Files.deleteIfExists(tasksFile);
         assertFalse(Files.exists(tasksFile));
         Storage storage = load();
         assertEquals(0, storage.getTasks().getSize());
@@ -114,15 +116,15 @@ public class StorageTest {
         Storage storage = load();
 
         Task removed = storage.deleteTask(1);
-        assertEquals("B", removed.getDescription());
+        assertEquals("A", removed.getDescription());
         assertEquals(2, storage.getTasks().getSize());
-        assertEquals("A", storage.getTasks().getTask(0).getDescription());
+        assertEquals("B", storage.getTasks().getTask(0).getDescription());
         assertEquals("C", storage.getTasks().getTask(1).getDescription());
 
         // fresh load to confirm persistence
         Storage reloaded = load();
         assertEquals(2, reloaded.getTasks().getSize());
-        assertEquals("A", reloaded.getTasks().getTask(0).getDescription());
+        assertEquals("B", reloaded.getTasks().getTask(0).getDescription());
         assertEquals("C", reloaded.getTasks().getTask(1).getDescription());
     }
 
@@ -132,8 +134,8 @@ public class StorageTest {
         Storage storage = load();
 
         int before = storage.getTasks().getSize();
-        assertThrows(IndexOutOfBoundsException.class, () -> {
-            storage.deleteTask(1);
+        assertThrows(AssertionError.class, () -> {
+            storage.deleteTask(2);
         });
 
         assertEquals(before, storage.getTasks().getSize());
@@ -162,7 +164,7 @@ public class StorageTest {
         writeLines(List.of(" T | 0 | A"));
         Storage storage = load();
 
-        assertThrows(NullPointerException.class, () -> {
+        assertThrows(AssertionError.class, () -> {
             storage.setTaskCompletion(null, true);
         });
     }
