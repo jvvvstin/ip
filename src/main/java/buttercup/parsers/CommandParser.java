@@ -15,12 +15,11 @@ import buttercup.utils.DateTimeFormatUtils;
  */
 public class CommandParser {
 
-    private final Storage storage;
     private static final String MARK_KEYWORD = "mark ";
     private static final String UNMARK_KEYWORD = "unmark ";
     private static final String DELETE_KEYWORD = "delete ";
     private static final String FIND_KEYWORD = "find ";
-    private static final String TODO_KEYWORD = "task ";
+    private static final String TODO_KEYWORD = "todo ";
     private static final String DEADLINE_KEYWORD = "deadline ";
     private static final String EVENT_KEYWORD = "event ";
     private static final int TODO_SUBSTRING_INDEX = TODO_KEYWORD.length();
@@ -34,6 +33,7 @@ public class CommandParser {
     private static final String FROM_FLAG = "/from";
     private static final String TO_FLAG = "/to";
     private static final int INVALID_TASK_NUMBER = 0;
+    private final Storage storage;
 
     /**
      * Constructor for a CommandParser object.
@@ -65,10 +65,8 @@ public class CommandParser {
                 result = handleMarkTask(input);
             } catch (NumberFormatException e) {
                 String errorMessage = "Invalid task number! Please enter in a valid task number e.g. mark 7.";
-                System.out.println(errorMessage);
                 return errorMessage;
             } catch (ButtercupException e) {
-                System.out.println(e);
                 return e.toString();
             }
             break;
@@ -77,10 +75,8 @@ public class CommandParser {
                 result = handleUnmarkTask(input);
             } catch (NumberFormatException e) {
                 String errorMessage = "Invalid task number! Please enter in a valid task number e.g. unmark 7.";
-                System.out.println(errorMessage);
                 return errorMessage;
             } catch (ButtercupException e) {
-                System.out.println(e);
                 return e.toString();
             }
             break;
@@ -90,7 +86,6 @@ public class CommandParser {
             try {
                 result = addTask(input);
             } catch (ButtercupException e) {
-                System.out.println(e);
                 return e.toString();
             }
             break;
@@ -99,10 +94,8 @@ public class CommandParser {
                 result = handleDeleteTask(input);
             } catch (NumberFormatException e) {
                 String errorMessage = "Invalid task number! Please enter in a valid task number e.g. delete 7.";
-                System.out.println(errorMessage);
                 return errorMessage;
             } catch (ButtercupException e) {
-                System.out.println(e);
                 return e.toString();
             }
             break;
@@ -110,7 +103,6 @@ public class CommandParser {
             try {
                 result = handleFindTask(input);
             } catch (ButtercupException e) {
-                System.out.println(e);
                 return e.toString();
             }
             break;
