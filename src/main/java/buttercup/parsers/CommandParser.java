@@ -33,6 +33,23 @@ public class CommandParser {
     private static final String FROM_FLAG = "/from";
     private static final String TO_FLAG = "/to";
     private static final int INVALID_TASK_NUMBER = 0;
+    private static final String HELP_MESSAGE = """
+            Hello, I am Buttercup!
+            I can help you keep track of all your ToDos, Deadlines and Events!
+            Here is a list of available commands:
+            1. help - Get a list of available commands
+            2. bye - Exit the application
+            3. list - List all tasks
+            4. todo {description} - Create a new ToDo task
+            5. deadline {description} /by {date} - Create a new Deadline task
+            6. event {description} /from {date} /to {date} - Create a new Event task
+            7. mark {task number} - Mark a task as complete
+            8. unmark {task number} - Unmark a task as incomplete
+            9. delete {task number} - Delete a task
+            10. find {keyword} - Find tasks containing the keyword
+            
+            Proceed to track your tasks now! :D
+            """;
     private final Storage storage;
 
     /**
@@ -106,8 +123,9 @@ public class CommandParser {
                 return e.toString();
             }
             break;
-        case BYE:
-            return "Bye. Hope to see you again soon!";
+        case HELP:
+            result = HELP_MESSAGE;
+            break;
         default:
             return result;
         }
