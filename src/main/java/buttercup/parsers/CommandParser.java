@@ -47,7 +47,7 @@ public class CommandParser {
             8. unmark {task number} - Unmark a task as incomplete
             9. delete {task number} - Delete a task
             10. find {keyword} - Find tasks containing the keyword
-            
+
             Proceed to track your tasks now! :D
             """;
     private final Storage storage;
