@@ -15,7 +15,8 @@ public enum Command {
     DEADLINE("deadline"),
     EVENT("event"),
     DELETE("delete"),
-    FIND("find");
+    FIND("find"),
+    HELP("help");
 
     private final String keyword;
 
