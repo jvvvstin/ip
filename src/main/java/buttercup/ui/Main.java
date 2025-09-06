@@ -13,6 +13,7 @@ import javafx.stage.Stage;
  * GUI class for Buttercup
  */
 public class Main extends Application {
+    private static final String TITLE = "Buttercup";
     private Buttercup buttercup = new Buttercup("data/", "tasks.txt");
 
     @Override
@@ -22,10 +23,11 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle(TITLE);
             stage.setMinHeight(220);
             stage.setMinWidth(417);
             // stage.setMaxWidth(417); // Add this if you didn't want automatically resize elements
-            fxmlLoader.<MainWindow>getController().setButtercup(buttercup); // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setButtercup(buttercup); // inject the Buttercup instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

@@ -33,14 +33,14 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
+    /** Injects the Buttercup instance */
     public void setButtercup(Buttercup buttercup) {
         this.buttercup = buttercup;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes, one echoing user input and the other containing Buttercup's reply and then appends them
+     * to the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() throws InterruptedException {
@@ -48,7 +48,7 @@ public class MainWindow extends AnchorPane {
         String response = buttercup.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, buttercupImage)
+                DialogBox.getButtercupDialog(response, buttercupImage)
         );
         userInput.clear();
         if (input.trim().equals("bye")) {
