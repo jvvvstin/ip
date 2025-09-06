@@ -33,6 +33,17 @@ public class CommandParser {
     private static final String FROM_FLAG = "/from";
     private static final String TO_FLAG = "/to";
     private static final int INVALID_TASK_NUMBER = 0;
+    private static final String LIST_NO_TASKS_MESSAGE = "Wow. Nothing? You’re either super efficient or super lazy.";
+    private static final String DELETE_NO_TASKS_MESSAGE = "Delete what? There’s nothing here.";
+    private static final String MARK_NO_TASKS_MESSAGE = "Complete what? You’ve got zero tasks.";
+    private static final String UNMARK_NO_TASKS_MESSAGE = "There’s literally nothing to uncheck.";
+    private static final String MARK_INVALID_FORMAT_MESSAGE = "Uh, that didn’t work. Try mark {task number} instead.";
+    private static final String UNMARK_INVALID_FORMAT_MESSAGE = "Uh, that didn’t work. Try unmark {task number}"
+            + " instead.";
+    private static final String DELETE_INVALID_FORMAT_MESSSAGE = "Uh, that didn’t work. Try delete {task number}";
+    private static final String FIND_INVALID_FORMAT_MESSAGE = "Uh, that didn’t work. Try find {task number}";
+    private static final String INVALID_TASK_NUMBER_MESSAGE = "Error! Something’s busted. Please enter in a valid task"
+            + " number.";
     private static final String HELP_MESSAGE = """
             Hello, I am Buttercup!
             I can help you keep track of all your ToDos, Deadlines and Events!
@@ -81,20 +92,18 @@ public class CommandParser {
             try {
                 result = handleMarkTask(input);
             } catch (NumberFormatException e) {
-                String errorMessage = "Invalid task number! Please enter in a valid task number e.g. mark 7.";
-                return errorMessage;
+                return INVALID_TASK_NUMBER_MESSAGE;
             } catch (ButtercupException e) {
-                return e.toString();
+                return e.getMessage();
             }
             break;
         case UNMARK:
             try {
                 result = handleUnmarkTask(input);
             } catch (NumberFormatException e) {
-                String errorMessage = "Invalid task number! Please enter in a valid task number e.g. unmark 7.";
-                return errorMessage;
+                return INVALID_TASK_NUMBER_MESSAGE;
             } catch (ButtercupException e) {
-                return e.toString();
+                return e.getMessage();
             }
             break;
         case TODO:
@@ -103,24 +112,23 @@ public class CommandParser {
             try {
                 result = addTask(input);
             } catch (ButtercupException e) {
-                return e.toString();
+                return e.getMessage();
             }
             break;
         case DELETE:
             try {
                 result = handleDeleteTask(input);
             } catch (NumberFormatException e) {
-                String errorMessage = "Invalid task number! Please enter in a valid task number e.g. delete 7.";
-                return errorMessage;
+                return INVALID_TASK_NUMBER_MESSAGE;
             } catch (ButtercupException e) {
-                return e.toString();
+                return e.getMessage();
             }
             break;
         case FIND:
             try {
                 result = handleFindTask(input);
             } catch (ButtercupException e) {
-                return e.toString();
+                return e.getMessage();
             }
             break;
         case HELP:
@@ -134,7 +142,7 @@ public class CommandParser {
 
     private String handleMarkTask(String input) throws ButtercupException, NumberFormatException {
         if (!input.startsWith(MARK_KEYWORD)) {
-            throw new ButtercupException("Invalid mark command, try mark {taskNumber} instead.");
+            throw new ButtercupException(MARK_INVALID_FORMAT_MESSAGE);
         }
         int taskNumber = Integer.parseInt(input.substring(MARK_SUBSTRING_INDEX).trim());
         return mark(taskNumber);
@@ -142,7 +150,7 @@ public class CommandParser {
 
     private String handleUnmarkTask(String input) throws ButtercupException, NumberFormatException {
         if (!input.startsWith(UNMARK_KEYWORD)) {
-            throw new ButtercupException("Invalid unmark command, try unmark {taskNumber} instead.");
+            throw new ButtercupException(UNMARK_INVALID_FORMAT_MESSAGE);
         }
         int taskNumber = Integer.parseInt(input.substring(UNMARK_SUBSTRING_INDEX).trim());
         return unmark(taskNumber);
@@ -150,7 +158,7 @@ public class CommandParser {
 
     private String handleDeleteTask(String input) throws ButtercupException, NumberFormatException {
         if (!input.startsWith(DELETE_KEYWORD)) {
-            throw new ButtercupException("Invalid delete command, try delete {taskNumber} instead.");
+            throw new ButtercupException(DELETE_INVALID_FORMAT_MESSSAGE);
         }
         int taskNumber = Integer.parseInt(input.substring(DELETE_SUBSTRING_INDEX).trim());
         return deleteTask(taskNumber);
@@ -158,10 +166,18 @@ public class CommandParser {
 
     private String handleFindTask(String input) throws ButtercupException {
         if (!input.startsWith(FIND_KEYWORD)) {
-            throw new ButtercupException("Invalid find command, try find {keyword} instead.");
+            throw new ButtercupException(FIND_INVALID_FORMAT_MESSAGE);
         }
         String keyword = input.substring(FIND_SUBSTRING_INDEX).trim();
         return findTask(keyword);
+    }
+
+    private String getAllTasksMessage() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here’s your lineup:\n");
+        sb.append(this.storage.getTasks().toString());
+        sb.append("\nDon't slack off!");
+        return sb.toString();
     }
 
     /**
@@ -172,12 +188,15 @@ public class CommandParser {
      */
     public String displayTasks() {
         if (storage.getTasks().isEmpty()) {
-            return "There are no tasks in the list.";
+            return LIST_NO_TASKS_MESSAGE;
         }
-        StringBuilder sb = new StringBuilder();
-        sb.append("Here are the tasks in your list:\n");
-        sb.append(this.storage.getTasks().toString());
-        return sb.toString();
+        return getAllTasksMessage();
+    }
+
+    private String getTaskNumberOutOfBoundsMessage() {
+        String message = String.format("Not my fault — try again. Please enter in a valid task number from 1 - %d.",
+                this.storage.getTasks().getSize());
+        return message;
     }
 
     /**
@@ -190,16 +209,15 @@ public class CommandParser {
      */
     public String mark(int taskNumber) throws ButtercupException {
         if (storage.getTasks().isEmpty()) {
-            throw new ButtercupException("There are no tasks in the list.");
+            throw new ButtercupException(MARK_NO_TASKS_MESSAGE);
         }
         boolean isInvalidIndex = taskNumber <= INVALID_TASK_NUMBER || taskNumber > this.storage.getTasks().getSize();
         if (isInvalidIndex) {
-            throw new ButtercupException("Invalid task number! Please enter in a valid task number from 1 - "
-                    + this.storage.getTasks().getSize() + " e.g. mark 7.");
+            throw new ButtercupException(getTaskNumberOutOfBoundsMessage());
         }
         Task task = this.storage.getTasks().getTask(taskNumber - 1);
         storage.setTaskCompletion(task, true);
-        return "Nice! I've marked this task as done:\n" + task.toString();
+        return "Nice! One down. I've marked this task as done:\n" + task.toString();
     }
 
     /**
@@ -212,16 +230,15 @@ public class CommandParser {
      */
     public String unmark(int taskNumber) throws ButtercupException {
         if (storage.getTasks().isEmpty()) {
-            throw new ButtercupException("There are no tasks in the list.");
+            throw new ButtercupException(UNMARK_NO_TASKS_MESSAGE);
         }
         boolean isInvalidIndex = taskNumber <= INVALID_TASK_NUMBER || taskNumber > this.storage.getTasks().getSize();
         if (isInvalidIndex) {
-            throw new ButtercupException("Invalid task number! Please enter in a valid task number from 1 - "
-                    + this.storage.getTasks().getSize() + " e.g. unmark 7.");
+            throw new ButtercupException(getTaskNumberOutOfBoundsMessage());
         }
         Task task = this.storage.getTasks().getTask(taskNumber - 1);
         storage.setTaskCompletion(task, false);
-        return "OK, I've marked this task as not done yet:\n" + task.toString();
+        return "Uh-oh, bringing that one back:\n" + task.toString();
     }
 
     /**
@@ -247,7 +264,7 @@ public class CommandParser {
 
         this.storage.addTask(newTask);
 
-        String str = String.format("Got it. I've added this task:\n"
+        String str = String.format("Boom. Task added:\n"
                         + "%s\n"
                         + "Now you have %d %s in the list.",
                 newTask, this.storage.getTasks().getSize(), this.storage.getTasks().getSize() == 1 ? "task" : "tasks");
@@ -332,15 +349,14 @@ public class CommandParser {
      */
     private String deleteTask(int taskNumber) throws ButtercupException {
         if (this.storage.getTasks().isEmpty()) {
-            throw new ButtercupException("There are no tasks in the list.");
+            throw new ButtercupException(DELETE_NO_TASKS_MESSAGE);
         }
         boolean isInvalidIndex = taskNumber <= INVALID_TASK_NUMBER || taskNumber > this.storage.getTasks().getSize();
         if (isInvalidIndex) {
-            throw new ButtercupException("Invalid task number! Please enter in a valid task number from 1 - "
-                    + this.storage.getTasks().getSize() + " e.g. delete 7.");
+            throw new ButtercupException(getTaskNumberOutOfBoundsMessage());
         }
         Task task = this.storage.deleteTask(taskNumber);
-        return "Noted! I've removed this task:\n" + task.toString();
+        return "Task obliterated:\n" + task.toString();
     }
 
     /**
@@ -366,13 +382,13 @@ public class CommandParser {
 
     private String findTask(String keyword) throws ButtercupException {
         if (keyword.isEmpty()) {
-            throw new ButtercupException("No keyword provided! Try find {keyword} instead.");
+            throw new ButtercupException("I’m tough, not psychic. Type a keyword like find {keyword}.");
         }
         TaskList filteredTasks = new TaskList(storage.getTasks().filterByKeyword(keyword));
         if (filteredTasks.isEmpty()) {
-            return "There are no tasks matching the keyword: " + keyword;
+            return "Nope. Nothing matches that: " + keyword;
         }
-        StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
+        StringBuilder sb = new StringBuilder("Tasks with that word? Right here:\n");
         sb.append(filteredTasks);
         return sb.toString();
     }
