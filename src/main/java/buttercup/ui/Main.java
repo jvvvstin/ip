@@ -27,7 +27,7 @@ public class Main extends Application {
             stage.setMinHeight(220);
             stage.setMinWidth(417);
             // stage.setMaxWidth(417); // Add this if you didn't want automatically resize elements
-            fxmlLoader.<MainWindow>getController().setButtercup(buttercup); // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setButtercup(buttercup); // inject the Buttercup instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
