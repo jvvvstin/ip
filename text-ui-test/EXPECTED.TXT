@@ -3,120 +3,124 @@ Hello! I'm Buttercup
 What can I do for you?
 ____________________________________________________________
 ____________________________________________________________
-There are no tasks in the list.
+Wow. Nothing? You’re either super efficient or super lazy.
 ____________________________________________________________
 ____________________________________________________________
-[ButtercupException]: There are no tasks in the list.
+Complete what? You’ve got zero tasks.
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
+Boom. Task added:
 [T][ ] read book
 Now you have 1 task in the list.
 ____________________________________________________________
 ____________________________________________________________
-[ButtercupException]: Invalid command, the description of a deadline cannot be left empty. Try deadline {description} /by {deadline} instead.
+Invalid command, the description of a deadline cannot be left empty. Try deadline {description} /by {deadline} instead.
 ____________________________________________________________
 ____________________________________________________________
-[ButtercupException]: Invalid format, deadline command should contain '/by' and be of the format deadline {description} /by {deadline} instead.
+Invalid format, deadline command should contain '/by' and be of the format deadline {description} /by {deadline} instead.
 ____________________________________________________________
 ____________________________________________________________
-[ButtercupException]: Invalid format, deadline's description should not be empty and should be of the format deadline {description} /by {deadline} instead.
+Invalid format, deadline's description should not be empty and should be of the format deadline {description} /by {deadline} instead.
 ____________________________________________________________
 ____________________________________________________________
-[ButtercupException]: Invalid format, deadline command should be of the format deadline {description} /by {deadline} instead.
+Invalid format, deadline command should be of the format deadline {description} /by {deadline} instead.
 ____________________________________________________________
 ____________________________________________________________
-[ButtercupException]: Invalid date time format. Please use date formats like 'yyyy-MM-dd HHmm' (e.g. 2019-09-15 1800) or 'd/M/yyyy HHmm' (e.g. 13/9/2015 1800)
+Invalid date time format. Please use date formats like 'yyyy-MM-dd HHmm' (e.g. 2019-09-15 1800) or 'd/M/yyyy HHmm' (e.g. 13/9/2015 1800)
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
+Boom. Task added:
 [D][ ] return book (by: Jun 06 2025 1800)
 Now you have 2 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
-[ButtercupException]: Invalid command, the description of a event cannot be left empty. Try event {description} /from {start} /to {end} instead.
+Invalid command, the description of a event cannot be left empty. Try event {description} /from {start} /to {end} instead.
 ____________________________________________________________
 ____________________________________________________________
-[ButtercupException]: Invalid format, event command should contain '/from' and be of the format event {description} /from {start} /to {end} instead.
+Invalid format, event command should contain '/from' and be of the format event {description} /from {start} /to {end} instead.
 ____________________________________________________________
 ____________________________________________________________
-[ButtercupException]: Invalid format, event's description should not be empty and should be of the format event {description} /from {start} /to {end} instead.
+Invalid format, event's description should not be empty and should be of the format event {description} /from {start} /to {end} instead.
 ____________________________________________________________
 ____________________________________________________________
-[ButtercupException]: Invalid format, event command should be of the format event {description} /from {start} /to {end} instead.
+Invalid format, event command should be of the format event {description} /from {start} /to {end} instead.
 ____________________________________________________________
 ____________________________________________________________
-[ButtercupException]: Invalid format, event command should be of the format event {description} /from {start} /to {end} instead.
+Invalid format, event command should be of the format event {description} /from {start} /to {end} instead.
 ____________________________________________________________
 ____________________________________________________________
-[ButtercupException]: Invalid format, event's start should not be empty and should be of the format event {description} /from {start} /to {end} instead.
+Invalid format, event's start should not be empty and should be of the format event {description} /from {start} /to {end} instead.
 ____________________________________________________________
 ____________________________________________________________
-[ButtercupException]: Invalid date time format. Please use date formats like 'yyyy-MM-dd HHmm' (e.g. 2019-09-15 1800) or 'd/M/yyyy HHmm' (e.g. 13/9/2015 1800)
+Invalid date time format. Please use date formats like 'yyyy-MM-dd HHmm' (e.g. 2019-09-15 1800) or 'd/M/yyyy HHmm' (e.g. 13/9/2015 1800)
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
+Boom. Task added:
 [E][ ] project meeting (from: Aug 06 2025 1400 to: Aug 06 2025 1600)
 Now you have 3 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
-Here are the tasks in your list:
+Here’s your lineup:
 1. [T][ ] read book
 2. [D][ ] return book (by: Jun 06 2025 1800)
 3. [E][ ] project meeting (from: Aug 06 2025 1400 to: Aug 06 2025 1600)
+Don't slack off!
 ____________________________________________________________
 ____________________________________________________________
-Invalid task number! Please enter in a valid task number e.g. mark 7.
+Error! Something’s busted. Please enter in a valid task number.
 ____________________________________________________________
 ____________________________________________________________
-[ButtercupException]: Invalid task number! Please enter in a valid task number from 1 - 3 e.g. mark 7.
+Not my fault — try again. Please enter in a valid task number from 1 - 3.
 ____________________________________________________________
 ____________________________________________________________
-[ButtercupException]: Invalid task number! Please enter in a valid task number from 1 - 3 e.g. mark 7.
+Not my fault — try again. Please enter in a valid task number from 1 - 3.
 ____________________________________________________________
 ____________________________________________________________
-Nice! I've marked this task as done:
+Nice! One down. I've marked this task as done:
 [D][X] return book (by: Jun 06 2025 1800)
 ____________________________________________________________
 ____________________________________________________________
-Here are the tasks in your list:
+Here’s your lineup:
 1. [T][ ] read book
 2. [D][X] return book (by: Jun 06 2025 1800)
 3. [E][ ] project meeting (from: Aug 06 2025 1400 to: Aug 06 2025 1600)
+Don't slack off!
 ____________________________________________________________
 ____________________________________________________________
-Invalid task number! Please enter in a valid task number e.g. unmark 7.
+Error! Something’s busted. Please enter in a valid task number.
 ____________________________________________________________
 ____________________________________________________________
-[ButtercupException]: Invalid task number! Please enter in a valid task number from 1 - 3 e.g. unmark 7.
+Not my fault — try again. Please enter in a valid task number from 1 - 3.
 ____________________________________________________________
 ____________________________________________________________
-[ButtercupException]: Invalid task number! Please enter in a valid task number from 1 - 3 e.g. unmark 7.
+Not my fault — try again. Please enter in a valid task number from 1 - 3.
 ____________________________________________________________
 ____________________________________________________________
-OK, I've marked this task as not done yet:
+Uh-oh, bringing that one back:
 [D][ ] return book (by: Jun 06 2025 1800)
 ____________________________________________________________
 ____________________________________________________________
-Here are the tasks in your list:
+Here’s your lineup:
 1. [T][ ] read book
 2. [D][ ] return book (by: Jun 06 2025 1800)
 3. [E][ ] project meeting (from: Aug 06 2025 1400 to: Aug 06 2025 1600)
+Don't slack off!
 ____________________________________________________________
 ____________________________________________________________
-[ButtercupException]: Invalid task number! Please enter in a valid task number from 1 - 3 e.g. delete 7.
+Not my fault — try again. Please enter in a valid task number from 1 - 3.
 ____________________________________________________________
 ____________________________________________________________
-[ButtercupException]: Invalid task number! Please enter in a valid task number from 1 - 3 e.g. delete 7.
+Not my fault — try again. Please enter in a valid task number from 1 - 3.
 ____________________________________________________________
 ____________________________________________________________
-Noted! I've removed this task:
+Task obliterated:
 [D][ ] return book (by: Jun 06 2025 1800)
 ____________________________________________________________
 ____________________________________________________________
-Here are the tasks in your list:
+Here’s your lineup:
 1. [T][ ] read book
 2. [E][ ] project meeting (from: Aug 06 2025 1400 to: Aug 06 2025 1600)
+Don't slack off!
 ____________________________________________________________
 ____________________________________________________________
 [ButtercupException]: Invalid command 'wrong'. Please try again.
