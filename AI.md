@@ -14,3 +14,12 @@
 - AI was able to quickly generate accurate code to achieve the intended visual outcome
 - It provided relevant and theme-consistent suggestions for colours, effects, and layout improvements
 - This accelerated the styling process, saving time on tasks like finding the right colours, animations, and UI patterns
+
+## 2. Buttercup Personality Ideation
+**Developed personality-aligned responses for the Buttercup chatbot**
+- Leveraged AI to brainstorm and create dialogue consistent with Buttercup’s character.
+- Generated varied responses for both successful task operations and error handling scenarios.
+
+**Observations**
+- AI was able to rapidly propose context-appropriate, in-character messages
+- This significantly reduced the time and effort needed to craft suitable personality-driven responses
