@@ -41,7 +41,7 @@ public class CommandParser {
     private static final String UNMARK_INVALID_FORMAT_MESSAGE = "Uh, that didn’t work. Try unmark {task number}"
             + " instead.";
     private static final String DELETE_INVALID_FORMAT_MESSSAGE = "Uh, that didn’t work. Try delete {task number}";
-    private static final String FIND_INVALID_FORMAT_MESSAGE = "Uh, that didn’t work. Try find {task number}";
+    private static final String FIND_INVALID_FORMAT_MESSAGE = "Uh, that didn’t work. Try find {keyword}";
     private static final String INVALID_TASK_NUMBER_MESSAGE = "Error! Something’s busted. Please enter in a valid task"
             + " number.";
     private static final String HELP_MESSAGE = """
@@ -59,8 +59,7 @@ public class CommandParser {
             9. delete {task number} - Delete a task
             10. find {keyword} - Find tasks containing the keyword
 
-            Proceed to track your tasks now! :D
-            """;
+            Proceed to track your tasks now! :D""";
     private final Storage storage;
 
     /**
