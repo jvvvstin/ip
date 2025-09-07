@@ -17,7 +17,7 @@ import buttercup.exceptions.ButtercupException;
 public class DateTimeFormatUtils {
     private static final DateTimeFormatter FORMATTER_1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final DateTimeFormatter FORMATTER_2 = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-    private static final String OUTPUT_FORMAT = "MMM dd yyyy HHmm";
+    private static final String OUTPUT_FORMAT = "MMM dd yyyy HH:mm";
 
     /**
      * Returns a <code>LocalDateTime</code> object if the <code>dateTimeString</code>
