@@ -30,7 +30,7 @@ Invalid date time format. Please use date formats like 'yyyy-MM-dd HHmm' (e.g. 2
 ____________________________________________________________
 ____________________________________________________________
 Boom. Task added:
-[D][ ] return book (by: Jun 06 2025 1800)
+[D][ ] return book (by: Jun 06 2025 18:00)
 Now you have 2 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
@@ -56,14 +56,14 @@ Invalid date time format. Please use date formats like 'yyyy-MM-dd HHmm' (e.g. 2
 ____________________________________________________________
 ____________________________________________________________
 Boom. Task added:
-[E][ ] project meeting (from: Aug 06 2025 1400 to: Aug 06 2025 1600)
+[E][ ] project meeting (from: Aug 06 2025 14:00 to: Aug 06 2025 16:00)
 Now you have 3 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Here’s your lineup:
 1. [T][ ] read book
-2. [D][ ] return book (by: Jun 06 2025 1800)
-3. [E][ ] project meeting (from: Aug 06 2025 1400 to: Aug 06 2025 1600)
+2. [D][ ] return book (by: Jun 06 2025 18:00)
+3. [E][ ] project meeting (from: Aug 06 2025 14:00 to: Aug 06 2025 16:00)
 Don't slack off!
 ____________________________________________________________
 ____________________________________________________________
@@ -77,13 +77,13 @@ Not my fault — try again. Please enter in a valid task number from 1 - 3.
 ____________________________________________________________
 ____________________________________________________________
 Nice! One down. I've marked this task as done:
-[D][X] return book (by: Jun 06 2025 1800)
+[D][X] return book (by: Jun 06 2025 18:00)
 ____________________________________________________________
 ____________________________________________________________
 Here’s your lineup:
 1. [T][ ] read book
-2. [D][X] return book (by: Jun 06 2025 1800)
-3. [E][ ] project meeting (from: Aug 06 2025 1400 to: Aug 06 2025 1600)
+2. [D][X] return book (by: Jun 06 2025 18:00)
+3. [E][ ] project meeting (from: Aug 06 2025 14:00 to: Aug 06 2025 16:00)
 Don't slack off!
 ____________________________________________________________
 ____________________________________________________________
@@ -97,13 +97,13 @@ Not my fault — try again. Please enter in a valid task number from 1 - 3.
 ____________________________________________________________
 ____________________________________________________________
 Uh-oh, bringing that one back:
-[D][ ] return book (by: Jun 06 2025 1800)
+[D][ ] return book (by: Jun 06 2025 18:00)
 ____________________________________________________________
 ____________________________________________________________
 Here’s your lineup:
 1. [T][ ] read book
-2. [D][ ] return book (by: Jun 06 2025 1800)
-3. [E][ ] project meeting (from: Aug 06 2025 1400 to: Aug 06 2025 1600)
+2. [D][ ] return book (by: Jun 06 2025 18:00)
+3. [E][ ] project meeting (from: Aug 06 2025 14:00 to: Aug 06 2025 16:00)
 Don't slack off!
 ____________________________________________________________
 ____________________________________________________________
@@ -114,16 +114,16 @@ Not my fault — try again. Please enter in a valid task number from 1 - 3.
 ____________________________________________________________
 ____________________________________________________________
 Task obliterated:
-[D][ ] return book (by: Jun 06 2025 1800)
+[D][ ] return book (by: Jun 06 2025 18:00)
 ____________________________________________________________
 ____________________________________________________________
 Here’s your lineup:
 1. [T][ ] read book
-2. [E][ ] project meeting (from: Aug 06 2025 1400 to: Aug 06 2025 1600)
+2. [E][ ] project meeting (from: Aug 06 2025 14:00 to: Aug 06 2025 16:00)
 Don't slack off!
 ____________________________________________________________
 ____________________________________________________________
-[ButtercupException]: Invalid command 'wrong'. Please try again.
+Invalid command 'wrong'. Please try again.
 ____________________________________________________________
 ____________________________________________________________
 Bye. Hope to see you again soon!
