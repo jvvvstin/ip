@@ -22,7 +22,7 @@ visually engaging output.
   - [Saving the data](#save-data)
   - [Editing the data file](#edit-data)
 - [FAQ](#faq)
-- Command Summary
+- [Command Summary](#command-summary)
 
 ## <a name="quick-start">Quick Start</a>
 1. Ensure you have Java `17` or above installed on your Computer\
@@ -276,6 +276,7 @@ welcomed to update data directly by editing that data file.
 the data of your Buttercup home folder
 
 ## <a name="command-summary">Command Summary</a>
+
 | Action       | Format, Examples                                                                                                         |
 |:-------------|:-------------------------------------------------------------------------------------------------------------------------|
 | **Help**     | `help`                                                                                                                   |
