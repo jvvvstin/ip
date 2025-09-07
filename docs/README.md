@@ -271,7 +271,7 @@ welcomed to update data directly by editing that data file.
 > the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 
 ## <a name="faq">FAQ</a>
-**Q:** How do I transfer my data to another Computer?
+**Q:** How do I transfer my data to another Computer?\
 **A:** Install the app in the other computer and overwrite the empty data file it creates with the file that contains
 the data of your Buttercup home folder
 
