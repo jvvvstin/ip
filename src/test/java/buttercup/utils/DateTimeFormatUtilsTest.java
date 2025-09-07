@@ -48,7 +48,7 @@ public class DateTimeFormatUtilsTest {
     @Test
     public void formatDateTime_validDateTime_success() {
         LocalDateTime dateTime = LocalDateTime.of(2025, 1, 1, 18, 0);
-        assertEquals("Jan 01 2025 1800",
+        assertEquals("Jan 01 2025 18:00",
                 DateTimeFormatUtils.formatDateTime(dateTime));
     }
 }
