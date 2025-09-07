@@ -264,11 +264,9 @@ There is no need to save manually.
 Buttercup tasks data are saved automatically as a txt file `[JAR file location]/data/tasks.txt`. Advanced users are
 welcomed to update data directly by editing that data file.
 
-> [!CAUTION]
-> If your changes to the data file makes its format invalid, Buttercup will discard all invalid lines and potentially
-> start with an empty data file. Hence, it is recommended to take a backup of the file before editing it.\
-> Furthermore, certain edits can cause Buttercup to behave in unexpected ways (e.g. if a value entered is outside of 
-> the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+| ⚠️ Caution                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| If your changes to the data file makes its format invalid, Buttercup will discard all invalid lines and potentially start with an empty data file. Hence, it is recommended to take a backup of the file before editing it.<br/>Furthermore, certain edits can cause Buttercup to behave in unexpected ways (e.g. if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly. |
 
 ## <a name="faq">FAQ</a>
 **Q:** How do I transfer my data to another Computer?\
