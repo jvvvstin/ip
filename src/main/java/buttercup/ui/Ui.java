@@ -65,7 +65,7 @@ public class Ui {
             try {
                 command = Command.getCommand(input.split(" ")[0]);
             } catch (ButtercupException e) {
-                System.out.println(e);
+                System.out.println(e.getMessage());
                 displayLine();
                 continue;
             }
