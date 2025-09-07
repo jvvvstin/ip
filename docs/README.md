@@ -19,7 +19,9 @@ visually engaging output.
   - [Deleting a task: `delete`](#delete-task)
   - [Locating tasks by description: `find`](#find-task)
   - [Exiting the program: `bye`](#exit)
-- FAQ
+  - [Saving the data](#save-data)
+  - [Editing the data file](#edit-data)
+- [FAQ](#faq)
 - Command Summary
 
 ## <a name="quick-start">Quick Start</a>
@@ -56,7 +58,7 @@ Some example commands you can try:
 7. Refer to the [Features](#features) below for details of each command
 
 ## <a name="features">Features</a>
-## <a name="view-help">Viewing help: `help`</a>
+### <a name="view-help">Viewing help: `help`</a>
 Shows a message displaying the list of existing commands
 ```
 help
@@ -80,7 +82,7 @@ ____________________________________________________________
 ```
 Format: `help`
 
-## <a name="list-tasks">Listing all tasks: `list`</a>
+### <a name="list-tasks">Listing all tasks: `list`</a>
 Shows a list of all tasks in the task list
 
 Format: `list`
@@ -97,7 +99,7 @@ Don't slack off!
 ____________________________________________________________
 ```
 
-## <a name="add-todos">Adding todos: `todo`</a>
+### <a name="add-todos">Adding todos: `todo`</a>
 Adds a todo task to the task list
 
 Format: `todo {description}`
@@ -116,7 +118,7 @@ Now you have 1 task in the list.
 ____________________________________________________________
 ```
 
-## <a name="add-deadlines">Adding deadlines: `deadline`</a>
+### <a name="add-deadlines">Adding deadlines: `deadline`</a>
 Adds a deadline task to the task list
 
 Format: `deadline {description} /by {date}`
@@ -138,7 +140,7 @@ Now you have 2 tasks in the list.
 ____________________________________________________________
 ```
 
-## <a name="add-events">Adding events: `event`</a>
+### <a name="add-events">Adding events: `event`</a>
 Adds an event task to the task list
 
 Format: `event {description} /from {date} /to {date}`
@@ -160,7 +162,7 @@ Now you have 3 tasks in the list.
 ____________________________________________________________
 ```
 
-## <a name="mark-task">Marking task complete: `mark`</a>
+### <a name="mark-task">Marking task complete: `mark`</a>
 Marks the specified task in the task list as complete
 
 Format: `mark {task number}`
@@ -180,7 +182,7 @@ Nice! One down. I've marked this task as done:
 ____________________________________________________________
 ```
 
-## <a name="unmark-task">Marking task incomplete: `unmark`</a>
+### <a name="unmark-task">Marking task incomplete: `unmark`</a>
 Marks the specified task in the task list as incomplete
 
 Format: `unmark {task number}`
@@ -200,7 +202,7 @@ Uh-oh, bringing that one back:
 ____________________________________________________________
 ```
 
-## <a name="delete-task">Deleting a task: `delete`</a>
+### <a name="delete-task">Deleting a task: `delete`</a>
 Deletes the specified task from the task list
 
 Format: `delete {task number}`
@@ -220,7 +222,7 @@ Task obliterated:
 ____________________________________________________________
 ```
 
-## <a name="find-task">Locating tasks by description: `find`</a>
+### <a name="find-task">Locating tasks by description: `find`</a>
 Find tasks whose description contains the given keyword
 
 Format: `find {keyword}`
@@ -241,7 +243,7 @@ Tasks with that word? Right here:
 ____________________________________________________________
 ```
 
-## <a name="exit">Exiting the program: `bye`</a>
+### <a name="exit">Exiting the program: `bye`</a>
 Exits the program
 
 Format: `bye`
@@ -254,11 +256,11 @@ Bye. Hope to see you again soon!
 ____________________________________________________________
 ```
 
-## <a name="save-data">Saving the data</a>
+### <a name="save-data">Saving the data</a>
 Buttercup tasks data are saved in the hard disk automatically after any command that changes the data.\
 There is no need to save manually.
 
-## <a name="edit-data">Editing the data file</a>
+### <a name="edit-data">Editing the data file</a>
 Buttercup tasks data are saved automatically as a txt file `[JAR file location]/data/tasks.txt`. Advanced users are
 welcomed to update data directly by editing that data file.
 
@@ -267,3 +269,22 @@ welcomed to update data directly by editing that data file.
 > start with an empty data file. Hence, it is recommended to take a backup of the file before editing it.\
 > Furthermore, certain edits can cause Buttercup to behave in unexpected ways (e.g. if a value entered is outside of 
 > the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+
+## <a name="faq">FAQ</a>
+**Q:** How do I transfer my data to another Computer?
+**A:** Install the app in the other computer and overwrite the empty data file it creates with the file that contains
+the data of your Buttercup home folder
+
+## <a name="command-summary">Command Summary</a>
+| Action       | Format, Examples                                                                                                         |
+|:-------------|:-------------------------------------------------------------------------------------------------------------------------|
+| **Help**     | `help`                                                                                                                   |
+| **List**     | `list`                                                                                                                   |
+| **Todo**     | `todo {description}`<br/>e.g. `todo borrow book`                                                                         |
+| **Deadline** | `deadline {description} /by {date}`<br/>e.g. `deadline return book /by 2025-09-30 0000`                                  |
+| **Event**    | `event {description} /from {date} /to {date}`<br/>e.g. `event project meeting /from 2025-08-06 1400 /to 2025-08-06 1600` |
+| **Mark**     | `mark {task number}`<br/>e.g. `mark 2`                                                                                   |
+| **Unmark**   | `unmark {task number}`<br/>e.g. `unmark 2`                                                                               |
+| **Delete** | `delete {task number}`<br/>e.g. `delete 2`                                                                               |
+| **Find** | `find {keyword}`<br/>e.g. `find book`                                                                                    |
+| **Exit** | `bye`                                                                                                                    |
